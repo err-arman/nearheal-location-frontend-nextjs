@@ -1,0 +1,25 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="400" height="300" fill="#f0f0f0"/>
+  
+  <!-- Building outline -->
+  <rect x="100" y="80" width="200" height="160" rx="5" fill="#e0e0e0" stroke="#cccccc" stroke-width="2"/>
+  
+  <!-- Windows -->
+  <rect x="120" y="100" width="40" height="40" rx="2" fill="#d0d0d0"/>
+  <rect x="180" y="100" width="40" height="40" rx="2" fill="#d0d0d0"/>
+  <rect x="240" y="100" width="40" height="40" rx="2" fill="#d0d0d0"/>
+  <rect x="120" y="160" width="40" height="40" rx="2" fill="#d0d0d0"/>
+  <rect x="180" y="160" width="40" height="40" rx="2" fill="#d0d0d0"/>
+  <rect x="240" y="160" width="40" height="40" rx="2" fill="#d0d0d0"/>
+  
+  <!-- Door -->
+  <rect x="180" y="200" width="40" height="40" rx="2" fill="#d0d0d0"/>
+  
+  <!-- Location pin -->
+  <path d="M200 60 C200 40, 220 20, 240 40 C260 60, 240 90, 220 100 C200 90, 180 60, 200 60 Z" fill="#6366f1" stroke="#4f46e5" stroke-width="2"/>
+  <circle cx="220" cy="60" r="10" fill="white"/>
+  
+  <!-- Text -->
+  <text x="200" y="260" font-family="Arial" font-size="14" text-anchor="middle" fill="#666666">Location Image</text>
+</svg>
