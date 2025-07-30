@@ -110,7 +110,8 @@ const BusinessDetails = () => {
   }
 
   return (
-    <ProviderLayout>
+    // <ProviderLayout>
+      <div>
       {/* Provider Header - Prominently displays the provider name and logo */}
       <ProviderHeader location={location} />
 
@@ -152,7 +153,8 @@ const BusinessDetails = () => {
           <ArrowUp className="h-5 w-5" />
         </button>
       )}
-    </ProviderLayout>
+      </div>
+    // </ProviderLayout>
   );
 };
 

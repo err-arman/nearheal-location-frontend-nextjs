@@ -9,18 +9,11 @@ import Link from "next/link";
 import Image from "next/image";
 import CategoryDropdown from "@/components/search/CategoryDropdown";
 import PlaceAutoComplete from "@/components/search/PlaceAutoComplete";
-import './globals.css'
+import "./globals.css";
 import { useRouter } from "next/navigation";
-// Mock location data
-interface Location {
-  id: string;
-  title: string;
-  description: string;
-  location: string;
-  categories: string[];
-  claimStatus: string;
-  gallery: string[];
-}
+import { getLocations } from "@/api/locationApi";
+import { Location } from "@/types/location";
+
 
 export interface SelectedPlace {
   main_text: string | null;
@@ -30,45 +23,6 @@ export interface SelectedPlace {
   lat: string | null;
   lng: string | null;
 }
-
-const mockLocations: Location[] = [
-  {
-    id: "1",
-    title: "Sydney Healthcare Center",
-    description:
-      "Comprehensive healthcare services with experienced professionals providing quality medical care for all ages.",
-    location: "Sydney, NSW",
-    categories: ["Healthcare", "General Practice"],
-    claimStatus: "4.8",
-    gallery: [
-      "https://images.unsplash.com/photo-1551190822-a9333d879b1f?auto=format&fit=crop&w=800",
-    ],
-  },
-  {
-    id: "2",
-    title: "Melbourne Nursing Services",
-    description:
-      "Professional nursing care and support services for patients in their homes and healthcare facilities.",
-    location: "Melbourne, VIC",
-    categories: ["Nursing", "Home Care"],
-    claimStatus: "4.9",
-    gallery: [
-      "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&w=800",
-    ],
-  },
-  {
-    id: "3",
-    title: "Brisbane Therapy Center",
-    description:
-      "Specialized therapy services including physiotherapy, occupational therapy, and rehabilitation programs.",
-    location: "Brisbane, QLD",
-    categories: ["Therapy", "Rehabilitation"],
-    claimStatus: "4.7",
-    gallery: [
-      "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=800",
-    ],
-  },
-];
 
 export default function HomePage() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -80,19 +34,18 @@ export default function HomePage() {
   );
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [initialTextValue, setInitialTextValue] = useState("");
-  const router = useRouter()
-
-  const placeholderImage =
-    "https://images.unsplash.com/photo-1551190822-a9333d879b1f?auto=format&fit=crop&w=800";
+  const router = useRouter();
 
   // Simulate fetching featured locations
   useEffect(() => {
     const fetchFeaturedLocations = async () => {
       setIsLoading(true);
       try {
-        // Simulate API delay
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        setFeaturedLocations(mockLocations);
+        // Get featured locations (first page, limit 3)
+        const response = await getLocations({ page: 1, limit: 3 });
+        if (response && response.data) {
+          setFeaturedLocations(response.data);
+        }
       } catch (error) {
         console.error("Error fetching featured locations:", error);
       } finally {
@@ -187,7 +140,6 @@ export default function HomePage() {
                         const queryString = searchParams.toString();
                         if (queryString) {
                           router.push(`/providers?${queryString}`);
-                          
                         } else {
                           router.push("/providers");
                         }
@@ -222,7 +174,7 @@ export default function HomePage() {
                                   location.gallery &&
                                   location.gallery.length > 0
                                     ? location.gallery[0]
-                                    : placeholderImage
+                                    : "/images/location-placeholder.jpg"
                                 }
                                 alt={location.title}
                                 width={400}

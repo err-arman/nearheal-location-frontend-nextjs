@@ -17,42 +17,15 @@ import Image from "next/image";
 import { getInitials } from "@/lib/utils";
 import { JoinMenu } from "./JoinMenu";
 import { MegaMenu } from "./MegaMenu";
-
-// Mock auth hook - replace with your actual auth implementation
-const useAuth = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState<any>(null);
-
-  const handleLogin = () => {
-    // Implement your login logic
-    console.log("Login clicked");
-  };
-
-  const handleRegister = () => {
-    // Implement your register logic
-    console.log("Register clicked");
-  };
-
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-    setUser(null);
-  };
-
-  return {
-    isLoggedIn,
-    user,
-    handleLogin,
-    handleRegister,
-    handleLogout,
-  };
-};
+import { useAuth } from "@/hooks/useAuth";
+import { authServerInfo } from "@/lib/auth";
 
 // Mock auth server info - replace with your actual configuration
-const authServerInfo = {
-  url: process.env.NEXT_PUBLIC_AUTH_URL || "http://localhost:3001",
-  clientId: process.env.NEXT_PUBLIC_CLIENT_ID || "your-client-id",
-  redirectUrl: process.env.NEXT_PUBLIC_REDIRECT_URL || "http://localhost:3000",
-};
+// const authServerInfo = {
+//   url: process.env.NEXT_PUBLIC_AUTH_URL || "http://localhost:3001",
+//   clientId: process.env.NEXT_PUBLIC_CLIENT_ID || "your-client-id",
+//   redirectUrl: process.env.NEXT_PUBLIC_REDIRECT_URL || "http://localhost:3000",
+// };
 
 interface HeaderWithMegaMenuProps {
   logoImageOnly?: boolean;
@@ -156,7 +129,7 @@ export const HeaderWithMegaMenu = ({
                   <DropdownMenuContent align="end" className="w-56">
                     <DropdownMenuLabel>My Account</DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <Link href="/dashboard/profile">
+                    <Link href="/profile">
                       <DropdownMenuItem className="cursor-pointer">
                         <User className="mr-2 w-4" />
                         <span>Profile</span>

@@ -9,7 +9,6 @@ import {
 } from "@/lib/auth";
 import { localStorageKey } from "@/utils/constant";
 import { useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
 
 type User = {
   id: string;
@@ -24,7 +23,6 @@ type User = {
 };
 
 export const useAuth = () => {
-  // const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(!!getAuthToken());
   const [user, setUser] = useState<User | null>(null);
 
@@ -42,9 +40,7 @@ export const useAuth = () => {
     try {
       const user = await login(token);
       await syncUser(user);
-      // navigate("/", {
-      //   replace: true,
-      // });
+      window.location.href = "/";
     } catch (err) {
       throw err;
     }
