@@ -11,6 +11,11 @@ export default function GoogleMapsProvider({
 }) {
   return (
     <LoadScript
+      loadingElement={
+        <div className="flex items-center justify-center h-screen">
+          Loading...
+        </div>
+      }
       googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}
       libraries={libraries}
     >
