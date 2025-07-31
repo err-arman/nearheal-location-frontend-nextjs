@@ -11,10 +11,12 @@ import GoogleMapsProvider from "./LayoutWrapper";
 // const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  icons: {
+    icon: "near_heal_logo.jpeg",
+  },
   title: "Nearheal - Healthcare Platform",
   description:
     "Your complete healthcare and learning platform, connecting professionals worldwide.",
-  generator: "v0.dev",
 };
 
 export default function RootLayout({

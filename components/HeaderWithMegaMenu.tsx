@@ -70,8 +70,8 @@ export const HeaderWithMegaMenu = ({
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
-              <MegaMenu />
-              <JoinMenu />
+              {/* <MegaMenu /> */}
+              {/* <JoinMenu /> */}
               <Link
                 href="/#about"
                 className="text-gray-700 hover:text-primary transition-colors"
