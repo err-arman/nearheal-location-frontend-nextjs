@@ -156,7 +156,7 @@ export const ServicesSection = () => {
               Start navigating the support options designed for your needs.
             </p>
             <Link
-              href="/explore"
+              href="/providers"
               className="inline-block px-6 sm:px-8 py-3 sm:py-4 bg-white text-primary rounded-lg hover:bg-gray-100 transition-colors text-base sm:text-lg font-medium"
             >
               Get Started Now

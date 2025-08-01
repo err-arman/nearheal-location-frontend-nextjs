@@ -13,7 +13,7 @@ import "./globals.css";
 import { useRouter } from "next/navigation";
 import { getLocations } from "@/api/locationApi";
 import { Location } from "@/types/location";
-
+import { categories } from "@/lib/utils";
 
 export interface SelectedPlace {
   main_text: string | null;
@@ -41,8 +41,11 @@ export default function HomePage() {
     const fetchFeaturedLocations = async () => {
       setIsLoading(true);
       try {
-        // Get featured locations (first page, limit 3)
-        const response = await getLocations({ page: 1, limit: 3 });
+        // Get featured locations (first page, limit 6)
+        const response = await getLocations({
+          page: Math.floor(Math.random() * 1534),
+          limit: 6,
+        });
         if (response && response.data) {
           setFeaturedLocations(response.data);
         }
@@ -251,6 +254,38 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* NDIS Categories Section */}
+      <section className="py-12 sm:py-20">
+        <div className="container mx-auto px-4 space-y-16 sm:space-y-32">
+          <div className="relative">
+            <div className="bg-indigo-50 p-6 sm:p-12 rounded-3xl">
+              <div className="text-center mb-8 sm:mb-12">
+                <h3 className="text-2xl sm:text-3xl font-bold text-primary-foreground mb-4">
+                  Find the Right NDIS Provider for Your Special Care Needs
+                </h3>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
+                {categories.map((category, index) => (
+                  <Link
+                    key={index}
+                    href={`/providers?categories=${encodeURIComponent(
+                      category
+                    )}`}
+                    className="group bg-white rounded-lg p-4 shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 hover:border-primary/20"
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm sm:text-base font-medium text-gray-700 group-hover:text-primary transition-colors duration-300 leading-tight">
+                        {category}
+                      </span>
+                      <ArrowRight className="h-4 w-4 text-gray-400 group-hover:text-primary group-hover:translate-x-1 transition-all duration-300 flex-shrink-0 ml-2" />
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
       {/* Services section */}
       <ServicesSection />
     </div>
