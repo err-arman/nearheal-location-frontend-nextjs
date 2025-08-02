@@ -4,21 +4,23 @@ export const HeroSection = () => {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="max-w-xl">
-            <h1 className="text-5xl font-bold text-primary-foreground mb-6 leading-snug">
-              Your Complete Healthcare & Learning Platform
+            <h1 className="text-5xl font-bold text-primary-foreground mb-4 leading-snug">
+              Find Your Special Care
             </h1>
             <p className="text-xl text-primary-foreground/90 mb-8">
-              Discover opportunities in healthcare, education, and more with Nearheal's comprehensive suite of services.
+              Know Your Local Expert Near You!
+              <br />
+              Access the information you need to find the best health service
             </p>
-            <a 
-              href="/providers" 
+            <a
+              href="/providers"
               className="inline-block px-8 py-4 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors text-lg"
             >
               Get Started
             </a>
           </div>
           <div className="relative">
-            <img 
+            <img
               src="https://images.unsplash.com/photo-1713942589752-6c6bb58ca8b6?auto=format&fit=crop&w=800"
               alt="Healthcare Professional"
               className="rounded-lg shadow-xl w-full"
