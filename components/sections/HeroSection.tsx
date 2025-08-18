@@ -4,7 +4,7 @@ export const HeroSection = () => {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="max-w-xl">
-            <h1 className="text-4xl font-bold text-primary-foreground mb-4 leading-snug">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-primary-foreground mb-4 leading-snug">
               Find your local experts near you
             </h1>
             {/* <p className="text-xl text-primary-foreground/90 mb-8">

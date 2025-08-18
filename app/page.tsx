@@ -88,10 +88,10 @@ export default function HomePage() {
     <div className="min-h-screen">
       <div className="py-12 sm:py-20">
         <div className="container mx-auto px-4 space-y-16 sm:space-y-32">
-          <div className="relative bg-gradient-to-r from-primary/90 to-secondary/90 rounded-3xl p-4 sm:p-8 lg:p-16">
+          <div className="relative bg-gradient-to-r bg-slate-200 rounded-3xl p-4 sm:p-8 lg:p-16">
             <div className="max-w-4xl mx-auto text-center">
-              <h3 className="text-2xl sm:text-3xl font-bold text-white mb-4">Find Your Ideal Support Services</h3>
-              <p className="text-lg sm:text-xl text-white/90 mb-8">
+              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-primary-foreground mb-4">Find Your Ideal Support Services</h3>
+              <p className="text-lg sm:text-xl text-primary-foreground mb-8">
                 Discover prime providers with comprehensive data to help you make informed decisions.
               </p>
 
@@ -146,9 +146,9 @@ export default function HomePage() {
       <section className="py-12 sm:py-20">
         <div className="container mx-auto px-4 space-y-16 sm:space-y-32">
           <div className="relative overflow-hidden rounded-3xl">
-            <div className="relative bg-gradient-to-r from-primary/90 to-secondary/90 p-4 sm:p-8 lg:p-16">
+            <div className="relative bg-teal-100 p-4 sm:p-8 lg:p-16">
               <div className="max-w-4xl mx-auto text-center">
-                <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4">
+                <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-primary-foreground mb-4">
                   Join the Nearheal Community
                 </h3>
                 {/* <p className="text-lg sm:text-xl text-white/90 mb-8 sm:mb-12 max-w-3xl mx-auto">
@@ -163,7 +163,7 @@ export default function HomePage() {
                     <Button
                       asChild
                       size="lg"
-                      className="w-full cursor-pointer sm:w-auto bg-white text-primary hover:bg-gray-50 px-8 py-4 text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                      className="w-full cursor-pointer sm:w-auto bg-white text-primary-foreground hover:bg-gray-50 px-8 py-4 text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
                       onClick={handleLogin}
                     >
                       {/* <Link href="/membership"> */}
@@ -191,12 +191,12 @@ export default function HomePage() {
                   </div>
 
                   {/* Join as Provider Button */}
-                  <div className="w-full sm:w-auto">
+                  <div className="w-full  sm:w-auto">
                     <Button
                       asChild
                       size="lg"
                       variant="outline"
-                      className="w-full sm:w-auto bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary px-8 py-4 text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                      className="w-full cursor-pointer sm:w-auto bg-primary text-primary-foreground hover:bg-white hover:text-primary-foreground px-8 py-4 text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
                       onClick={() => {
                         window.location.href = `${process.env.NEXT_PUBLIC_NEARHEAL_LOCATION_ADMIN_URL}`;
                       }}
@@ -239,7 +239,7 @@ export default function HomePage() {
               <div className="max-w-4xl mx-auto">
                 {/* Featured Locations */}
                 <div className="mt-12 sm:mt-16">
-                  <h4 className="text-xl sm:text-2xl font-bold text-primary-foreground mb-6 text-center">
+                  <h4 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-primary-foreground mb-6 text-center">
                     Featured Providers
                   </h4>
 
