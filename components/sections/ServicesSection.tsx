@@ -1,7 +1,13 @@
-import Image from "next/image"
-import Link from "next/link"
+import { useAuth } from "@/hooks/useAuth";
+import Image from "next/image";
+import Link from "next/link";
+import { Button } from "../ui/button";
+import { categories } from "@/lib/utils";
+import { ArrowRight } from "lucide-react";
 
 export const ServicesSection = () => {
+  const { handleLogin } = useAuth();
+
   return (
     <section className="py-12 sm:py-20">
       <div className="container mx-auto px-4 space-y-16 sm:space-y-32">
@@ -11,11 +17,17 @@ export const ServicesSection = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
               <div>
                 <h3 className="text-2xl sm:text-3xl font-bold text-primary-foreground mb-4">
-                  Affordable Assistance for Everyone
+                  Access Affordable Assistance for Everyone{" "}
                 </h3>
                 <p className="text-lg sm:text-xl text-primary-foreground/85 mb-6">
-                  Access quality services without breaking the bank.
+                  Access quality services with full confidence{" "}
                 </p>
+                <a
+                  href="/providers"
+                  className="inline-block px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors text-lg"
+                >
+                  Search providers
+                </a>
               </div>
               <div className="relative">
                 <div className="absolute top-4 right-4 w-full h-full bg-primary/5 rounded-2xl"></div>
@@ -33,7 +45,7 @@ export const ServicesSection = () => {
         </div>
 
         {/* Tailored Services - Stacked Cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center bg-[#D3E4FD] p-6 sm:p-12 rounded-3xl">
+        {/* <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center bg-[#D3E4FD] p-6 sm:p-12 rounded-3xl">
           <div className="lg:col-span-7 order-2 lg:order-1">
             <Image
               src="https://images.unsplash.com/photo-1461532257246-777de18cd58b?auto=format&fit=crop&w=800"
@@ -51,7 +63,7 @@ export const ServicesSection = () => {
               Uncover options that perfectly fit your unique needs.
             </p>
           </div>
-        </div>
+        </div> */}
 
         {/* Inclusive Community - Split with Diagonal */}
         <div className="relative">
@@ -69,11 +81,42 @@ export const ServicesSection = () => {
               </div>
               <div className="order-1 lg:order-2">
                 <h3 className="text-2xl sm:text-3xl font-bold text-primary-foreground mb-4">
-                  Be Part of Our Inclusive Community
+                  Be Part of Our Inclusive Nearheal Community{" "}
                 </h3>
                 <p className="text-lg sm:text-xl text-primary-foreground/85 mb-6">
                   Join a network that values connection and support.
                 </p>
+
+                <div className="w-full sm:w-auto">
+                  <Button
+                    asChild
+                    size="lg"
+                    className="w-full cursor-pointer sm:w-auto bg-primary hover:bg-gray-50 px-8 py-4 text-lg rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                    onClick={handleLogin}
+                  >
+                    {/* <Link href="/membership"> */}
+                    <div className="flex items-center justify-center gap-2">
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                        />
+                      </svg>
+                      Become a Nearheal Member
+                    </div>
+                    {/* </Link> */}
+                  </Button>
+                  {/* <p className="text-white/80 text-sm mt-2">
+                      Access premium healthcare services
+                    </p> */}
+                </div>
               </div>
             </div>
           </div>
@@ -82,9 +125,11 @@ export const ServicesSection = () => {
         {/* Caring Community - Card Grid Layout */}
         <div className="bg-[#FEF7CD] p-6 sm:p-12 rounded-3xl">
           <div className="text-center mb-8 sm:mb-12">
-            <h3 className="text-2xl sm:text-3xl font-bold text-primary-foreground mb-4">A Community That Cares</h3>
+            <h3 className="text-2xl sm:text-3xl font-bold text-primary-foreground mb-4">
+              A local provider that cares
+            </h3>
             <p className="text-lg sm:text-xl text-primary-foreground/85">
-              Engage with a group of people ready to support you.
+              join nearheal now to engage local community{" "}
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
@@ -112,30 +157,38 @@ export const ServicesSection = () => {
           </div>
         </div>
 
-        {/* Support Budget - Circular Image Layout */}
-        <div className="bg-[#F2FCE2] p-6 sm:p-12 rounded-3xl">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+        {/* NDIS Categories Section */}
+        <section className=" sm:py-20">
+          <div className="container mx-auto px-4 space-y-16 sm:space-y-32">
             <div className="relative">
-              <div className="aspect-square rounded-full overflow-hidden">
-                <Image
-                  src="https://images.unsplash.com/photo-1574607407517-cd664b1504f5?auto=format&fit=crop&w=600"
-                  alt="Support Budget"
-                  width={600}
-                  height={600}
-                  className="w-full h-full object-cover"
-                />
+              <div className="bg-indigo-50 p-6 sm:p-12 rounded-3xl">
+                <div className="text-center mb-8 sm:mb-12">
+                  <h3 className="text-2xl sm:text-3xl font-bold text-primary-foreground mb-4">
+                    Find the Right NDIS Provider for Your Special Care Needs
+                  </h3>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
+                  {categories.map((category, index) => (
+                    <Link
+                      key={index}
+                      href={`/providers?categories=${encodeURIComponent(
+                        category
+                      )}`}
+                      className="group bg-white rounded-lg p-4 shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 hover:border-primary/20"
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm sm:text-base font-medium text-gray-700 group-hover:text-primary transition-colors duration-300 leading-tight">
+                          {category}
+                        </span>
+                        <ArrowRight className="h-4 w-4 text-gray-400 group-hover:text-primary group-hover:translate-x-1 transition-all duration-300 flex-shrink-0 ml-2" />
+                      </div>
+                    </Link>
+                  ))}
+                </div>
               </div>
             </div>
-            <div>
-              <h3 className="text-2xl sm:text-3xl font-bold text-primary-foreground mb-4">
-                Support That Fits Your Wallet
-              </h3>
-              <p className="text-lg sm:text-xl text-primary-foreground/85 mb-6">
-                Discover solutions that match your budget and lifestyle.
-              </p>
-            </div>
           </div>
-        </div>
+        </section>
 
         {/* Call to Action */}
         <div className="relative overflow-hidden rounded-3xl">
@@ -165,5 +218,5 @@ export const ServicesSection = () => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};

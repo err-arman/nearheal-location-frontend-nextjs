@@ -10,8 +10,9 @@ export const FooterSection = () => {
               About Nearheal
             </h3>
             <p className="text-sm leading-relaxed">
-              Nearheal is a Sydney-based health tech startup building a
-              compassionate and innovative healthcare ecosystem in Australia
+              Nearheal is an Australian information technology company
+              compassionately building an innovative, resilient, and
+              self-sufficient healthcare ecosystem.{" "}
             </p>
           </div>
 
@@ -112,14 +113,14 @@ export const FooterSection = () => {
             </h3>
             <ul className="space-y-2">
               <li>Address: 3/8 Mackie st, Coniston, NSW 2500, Australia </li>
-              <li>Phone: +61413421895</li>
+              <li>Phone: +61451645094</li>
               <li>Email: info@nearheal.com.au</li>
             </ul>
           </div>
         </div>
 
         <div className="border-t border-gray-800 mt-6 sm:mt-8 pt-6 sm:pt-8 text-center">
-          <p className="text-sm">© 2025 Nearheal. All rights reserved.</p>
+          <p className="text-sm">© 2021-2025 Nearheal. All rights reserved.</p>
         </div>
       </div>
     </footer>

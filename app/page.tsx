@@ -13,7 +13,7 @@ import "./globals.css";
 import { useRouter } from "next/navigation";
 import { getLocations } from "@/api/locationApi";
 import { Location } from "@/types/location";
-import { categories } from "@/lib/utils";
+import { useAuth } from "@/hooks/useAuth";
 
 export interface SelectedPlace {
   main_text: string | null;
@@ -35,6 +35,8 @@ export default function HomePage() {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [initialTextValue, setInitialTextValue] = useState("");
   const router = useRouter();
+  const { isLoggedIn, handleLogin, handleRegister, handleLogout, user } =
+    useAuth();
 
   // Simulate fetching featured locations
   useEffect(() => {
@@ -84,7 +86,150 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen">
+      <div className="py-12 sm:py-20">
+        <div className="container mx-auto px-4 space-y-16 sm:space-y-32">
+          <div className="relative bg-gradient-to-r from-primary/90 to-secondary/90 rounded-3xl p-4 sm:p-8 lg:p-16">
+            <div className="max-w-4xl mx-auto text-center">
+              <h3 className="text-2xl sm:text-3xl font-bold text-white mb-4">Find Your Ideal Support Services</h3>
+              <p className="text-lg sm:text-xl text-white/90 mb-8">
+                Discover prime providers with comprehensive data to help you make informed decisions.
+              </p>
+
+              {/* Search Box */}
+              <div className="bg-white p-3 rounded-lg shadow-lg flex flex-col md:flex-row gap-2">
+                <div className="relative flex-grow">
+                  <CategoryDropdown selectedItems={selectedCategories} setSelectedItems={setSelectedCategories} />
+                </div>
+                <div className="relative flex-grow">
+                  <PlaceAutoComplete
+                    searchType={["(cities)"]}
+                    setselectedplace={setSelectedPlace}
+                    placeholder="Search places"
+                    setInitialTextValue={setInitialTextValue}
+                  />
+                </div>
+
+                <Button
+                  className="py-3 px-6 md:px-8"
+                  onClick={() => {
+                    const searchParams = new URLSearchParams()
+
+                    if (selectedPlace?.description?.length) {
+                      searchParams.append("search", selectedPlace.description)
+                    }
+
+                    selectedCategories?.length && searchParams.set("categories", selectedCategories.join(","))
+
+                    if (selectedRegion) {
+                      searchParams.append("region", selectedRegion)
+                    }
+
+                    const queryString = searchParams.toString()
+                    if (queryString) {
+                      router.push(`/providers?${queryString}`)
+                    } else {
+                      router.push("/providers")
+                    }
+                  }}
+                >
+                  Search
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <HeroSection />
+
+      {/* Membership & Provider Section */}
+      <section className="py-12 sm:py-20">
+        <div className="container mx-auto px-4 space-y-16 sm:space-y-32">
+          <div className="relative overflow-hidden rounded-3xl">
+            <div className="relative bg-gradient-to-r from-primary/90 to-secondary/90 p-4 sm:p-8 lg:p-16">
+              <div className="max-w-4xl mx-auto text-center">
+                <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4">
+                  Join the Nearheal Community
+                </h3>
+                {/* <p className="text-lg sm:text-xl text-white/90 mb-8 sm:mb-12 max-w-3xl mx-auto">
+                  Whether you're seeking quality healthcare services or looking
+                  to provide them, Nearheal connects you with the right
+                  opportunities in your local community.
+                </p> */}
+
+                <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center">
+                  {/* Become a Member Button */}
+                  <div className="w-full sm:w-auto">
+                    <Button
+                      asChild
+                      size="lg"
+                      className="w-full cursor-pointer sm:w-auto bg-white text-primary hover:bg-gray-50 px-8 py-4 text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                      onClick={handleLogin}
+                    >
+                      {/* <Link href="/membership"> */}
+                      <div className="flex items-center justify-center gap-2">
+                        <svg
+                          className="w-5 h-5"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                          />
+                        </svg>
+                        Become a Nearheal Member
+                      </div>
+                      {/* </Link> */}
+                    </Button>
+                    {/* <p className="text-white/80 text-sm mt-2">
+                      Access premium healthcare services
+                    </p> */}
+                  </div>
+
+                  {/* Join as Provider Button */}
+                  <div className="w-full sm:w-auto">
+                    <Button
+                      asChild
+                      size="lg"
+                      variant="outline"
+                      className="w-full sm:w-auto bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary px-8 py-4 text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                      onClick={() => {
+                        window.location.href = `${process.env.NEXT_PUBLIC_NEARHEAL_LOCATION_ADMIN_URL}`;
+                      }}
+                    >
+                      {/* <Link href="/provider-signup"> */}
+                      <div className="flex items-center justify-center gap-2">
+                        <svg
+                          className="w-5 h-5"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-2 0H3m2 0h4M9 7h6m-6 4h6m-6 4h6"
+                          />
+                        </svg>
+                        Join as Provider
+                      </div>
+                      {/* </Link> */}
+                    </Button>
+                    {/* <p className="text-white/80 text-sm mt-2">
+                      Grow your healthcare practice
+                    </p> */}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Support Services with Location Search */}
       <section className="py-12 sm:py-20">
@@ -92,67 +237,6 @@ export default function HomePage() {
           <div className="relative overflow-hidden rounded-3xl">
             <div className="relative bg-[#FDE1D3]/80 p-4 sm:p-8 lg:p-16">
               <div className="max-w-4xl mx-auto">
-                <div className="text-center mb-8 sm:mb-12">
-                  <h3 className="text-2xl sm:text-3xl font-bold text-primary-foreground mb-4">
-                    Find Your Ideal Support Services
-                  </h3>
-                  <p className="text-lg sm:text-xl text-primary-foreground/85 mb-6">
-                    Discover prime locations with comprehensive data to help you
-                    make informed decisions.
-                  </p>
-
-                  {/* Search Box */}
-                  <div className="bg-white p-3 rounded-lg shadow-lg flex flex-col md:flex-row gap-2 mt-8">
-                    <div className="relative flex-grow">
-                      <CategoryDropdown
-                        selectedItems={selectedCategories}
-                        setSelectedItems={setSelectedCategories}
-                      />
-                    </div>
-                    <div className="relative flex-grow">
-                      <PlaceAutoComplete
-                        searchType={["(cities)"]}
-                        setselectedplace={setSelectedPlace}
-                        placeholder="Search places"
-                        setInitialTextValue={setInitialTextValue}
-                      />
-                    </div>
-
-                    <Button
-                      className="py-3 px-6"
-                      onClick={() => {
-                        let searchParams = new URLSearchParams();
-
-                        if (selectedPlace?.description?.length) {
-                          searchParams.append(
-                            "search",
-                            selectedPlace.description
-                          );
-                        }
-
-                        selectedCategories?.length &&
-                          searchParams.set(
-                            "categories",
-                            selectedCategories.join(",")
-                          );
-
-                        if (selectedRegion) {
-                          searchParams.append("region", selectedRegion);
-                        }
-
-                        const queryString = searchParams.toString();
-                        if (queryString) {
-                          router.push(`/providers?${queryString}`);
-                        } else {
-                          router.push("/providers");
-                        }
-                      }}
-                    >
-                      Search
-                    </Button>
-                  </div>
-                </div>
-
                 {/* Featured Locations */}
                 <div className="mt-12 sm:mt-16">
                   <h4 className="text-xl sm:text-2xl font-bold text-primary-foreground mb-6 text-center">
@@ -254,38 +338,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* NDIS Categories Section */}
-      <section className="py-12 sm:py-20">
-        <div className="container mx-auto px-4 space-y-16 sm:space-y-32">
-          <div className="relative">
-            <div className="bg-indigo-50 p-6 sm:p-12 rounded-3xl">
-              <div className="text-center mb-8 sm:mb-12">
-                <h3 className="text-2xl sm:text-3xl font-bold text-primary-foreground mb-4">
-                  Find the Right NDIS Provider for Your Special Care Needs
-                </h3>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
-                {categories.map((category, index) => (
-                  <Link
-                    key={index}
-                    href={`/providers?categories=${encodeURIComponent(
-                      category
-                    )}`}
-                    className="group bg-white rounded-lg p-4 shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 hover:border-primary/20"
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm sm:text-base font-medium text-gray-700 group-hover:text-primary transition-colors duration-300 leading-tight">
-                        {category}
-                      </span>
-                      <ArrowRight className="h-4 w-4 text-gray-400 group-hover:text-primary group-hover:translate-x-1 transition-all duration-300 flex-shrink-0 ml-2" />
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+  
       {/* Services section */}
       <ServicesSection />
     </div>
