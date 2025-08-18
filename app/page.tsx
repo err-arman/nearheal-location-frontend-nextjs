@@ -86,19 +86,25 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen">
-      <div className="py-12 sm:py-20">
+      <div className="py-20">
         <div className="container mx-auto px-4 space-y-16 sm:space-y-32">
           <div className="relative bg-gradient-to-r bg-slate-200 rounded-3xl p-4 sm:p-8 lg:p-16">
             <div className="max-w-4xl mx-auto text-center">
-              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-primary-foreground mb-4">Find Your Ideal Support Services</h3>
+              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-primary-foreground mb-4">
+                Find Your Ideal Support Services
+              </h3>
               <p className="text-lg sm:text-xl text-primary-foreground mb-8">
-                Discover prime providers with comprehensive data to help you make informed decisions.
+                Discover prime providers with comprehensive data to help you
+                make informed decisions.
               </p>
 
               {/* Search Box */}
               <div className="bg-white p-3 rounded-lg shadow-lg flex flex-col md:flex-row gap-2">
                 <div className="relative flex-grow">
-                  <CategoryDropdown selectedItems={selectedCategories} setSelectedItems={setSelectedCategories} />
+                  <CategoryDropdown
+                    selectedItems={selectedCategories}
+                    setSelectedItems={setSelectedCategories}
+                  />
                 </div>
                 <div className="relative flex-grow">
                   <PlaceAutoComplete
@@ -112,23 +118,27 @@ export default function HomePage() {
                 <Button
                   className="py-3 px-6 md:px-8"
                   onClick={() => {
-                    const searchParams = new URLSearchParams()
+                    const searchParams = new URLSearchParams();
 
                     if (selectedPlace?.description?.length) {
-                      searchParams.append("search", selectedPlace.description)
+                      searchParams.append("search", selectedPlace.description);
                     }
 
-                    selectedCategories?.length && searchParams.set("categories", selectedCategories.join(","))
+                    selectedCategories?.length &&
+                      searchParams.set(
+                        "categories",
+                        selectedCategories.join(",")
+                      );
 
                     if (selectedRegion) {
-                      searchParams.append("region", selectedRegion)
+                      searchParams.append("region", selectedRegion);
                     }
 
-                    const queryString = searchParams.toString()
+                    const queryString = searchParams.toString();
                     if (queryString) {
-                      router.push(`/providers?${queryString}`)
+                      router.push(`/providers?${queryString}`);
                     } else {
-                      router.push("/providers")
+                      router.push("/providers");
                     }
                   }}
                 >
@@ -146,30 +156,27 @@ export default function HomePage() {
       <section className="py-12 sm:py-20">
         <div className="container mx-auto px-4 space-y-16 sm:space-y-32">
           <div className="relative overflow-hidden rounded-3xl">
-            <div className="relative bg-teal-100 p-4 sm:p-8 lg:p-16">
+            <div className="relative bg-amber-200 p-6 sm:p-12 lg:p-16 py-16 sm:py-20 lg:py-24">
               <div className="max-w-4xl mx-auto text-center">
-                <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-primary-foreground mb-4">
+                <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-primary-foreground mb-6 sm:mb-8">
                   Join the Nearheal Community
                 </h3>
-                {/* <p className="text-lg sm:text-xl text-white/90 mb-8 sm:mb-12 max-w-3xl mx-auto">
-                  Whether you're seeking quality healthcare services or looking
-                  to provide them, Nearheal connects you with the right
-                  opportunities in your local community.
-                </p> */}
-
-                <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center">
+                <p className="text-base sm:text-lg text-primary-foreground mb-8 sm:mb-12 max-w-2xl mx-auto">
+                  Connect with healthcare providers and members in your community
+                </p>
+                
+                <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center max-w-2xl mx-auto">
                   {/* Become a Member Button */}
-                  <div className="w-full sm:w-auto">
+                  <div className="w-full sm:w-auto sm:flex-1">
                     <Button
                       asChild
                       size="lg"
-                      className="w-full cursor-pointer sm:w-auto bg-white text-primary-foreground hover:bg-gray-50 px-8 py-4 text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                      className="w-full cursor-pointer bg-primary text-white hover:bg-primary/90 px-6 sm:px-8 py-4 sm:py-5 text-base sm:text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
                       onClick={handleLogin}
                     >
-                      {/* <Link href="/membership"> */}
-                      <div className="flex items-center justify-center gap-2">
+                      <div className="flex items-center justify-center gap-3 py-1">
                         <svg
-                          className="w-5 h-5"
+                          className="w-5 h-5 flex-shrink-0"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -181,30 +188,25 @@ export default function HomePage() {
                             d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                           />
                         </svg>
-                        Become a Nearheal Member
+                        <span className="whitespace-nowrap">Become a Member</span>
                       </div>
-                      {/* </Link> */}
                     </Button>
-                    {/* <p className="text-white/80 text-sm mt-2">
-                      Access premium healthcare services
-                    </p> */}
                   </div>
 
                   {/* Join as Provider Button */}
-                  <div className="w-full  sm:w-auto">
+                  <div className="w-full sm:w-auto sm:flex-1">
                     <Button
                       asChild
                       size="lg"
                       variant="outline"
-                      className="w-full cursor-pointer sm:w-auto bg-primary text-primary-foreground hover:bg-white hover:text-primary-foreground px-8 py-4 text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                      className="w-full cursor-pointer bg-white text-slate-700  hover:bg-slate-50 px-6 sm:px-8 py-4 sm:py-5 text-base sm:text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
                       onClick={() => {
                         window.location.href = `${process.env.NEXT_PUBLIC_NEARHEAL_LOCATION_ADMIN_URL}`;
                       }}
                     >
-                      {/* <Link href="/provider-signup"> */}
-                      <div className="flex items-center justify-center gap-2">
+                      <div className="flex items-center justify-center gap-3 py-1">
                         <svg
-                          className="w-5 h-5"
+                          className="w-5 h-5 flex-shrink-0"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -216,13 +218,9 @@ export default function HomePage() {
                             d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-2 0H3m2 0h4M9 7h6m-6 4h6m-6 4h6"
                           />
                         </svg>
-                        Join as Provider
+                        <span className="whitespace-nowrap">Join as Provider</span>
                       </div>
-                      {/* </Link> */}
                     </Button>
-                    {/* <p className="text-white/80 text-sm mt-2">
-                      Grow your healthcare practice
-                    </p> */}
                   </div>
                 </div>
               </div>
@@ -338,7 +336,6 @@ export default function HomePage() {
         </div>
       </section>
 
-  
       {/* Services section */}
       <ServicesSection />
     </div>
