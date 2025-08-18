@@ -33,7 +33,7 @@ export default function CategoryDropdown({
       try {
         const res = await getLocations({
           page: 1,
-          limit: Number.MAX_SAFE_INTEGER,
+          limit: 10,
           search: inputValue.trim(),
         });
         setFilteredProviders(res?.data ?? []);
@@ -43,10 +43,12 @@ export default function CategoryDropdown({
     }, 400);
   }, [inputValue]);
 
-
   useEffect(() => {
     const handler = (e: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target as Node)
+      ) {
         setIsOpen(false);
       }
     };
@@ -59,8 +61,8 @@ export default function CategoryDropdown({
       setFilteredCategories([]);
       return;
     }
-    const filtered = categories.filter(
-      (cat) => cat.toLowerCase().includes(inputValue.toLowerCase())
+    const filtered = categories.filter((cat) =>
+      cat.toLowerCase().includes(inputValue.toLowerCase())
     );
     setFilteredCategories(filtered);
   }, [inputValue]);
@@ -99,45 +101,46 @@ export default function CategoryDropdown({
             placeholder="Search Provider or NDIS Categories to reach your needs"
           />
         </div>
-        {isOpen && (filteredCategories.length > 0 || filteredProviders.length > 0) &&
-          <ul className="absolute z-10 w-full mt-1 max-h-60 overflow-auto bg-white border rounded-lg shadow-lg">
-            {filteredCategories.length > 0 && (
-              <>
-                <li className="flex items-center gap-2 px-4 py-2 text-left font-semibold text-gray-700 bg-gray-50 sticky top-0">
-                  <Layers size={14} className="text-gray-400" />
-                  NDIS Category
-                </li>
-                {filteredCategories.map((item, idx) => (
-                  <li
-                    key={`cat-${idx}`}
-                    onClick={() => handleSelectItem(item)}
-                    className="px-4 py-2 cursor-pointer hover:bg-blue-100 text-left text-gray-800"
-                  >
-                    {item}
+        {isOpen &&
+          (filteredCategories.length > 0 || filteredProviders.length > 0) && (
+            <ul className="absolute z-10 w-full mt-1 max-h-60 overflow-auto bg-white border rounded-lg shadow-lg">
+              {filteredCategories.length > 0 && (
+                <>
+                  <li className="flex items-center gap-2 px-4 py-2 text-left font-semibold text-gray-700 bg-gray-50 sticky top-0">
+                    <Layers size={14} className="text-gray-400" />
+                    NDIS Category
                   </li>
-                ))}
-              </>
-            )}
+                  {filteredCategories.map((item, idx) => (
+                    <li
+                      key={`cat-${idx}`}
+                      onClick={() => handleSelectItem(item)}
+                      className="px-4 py-2 cursor-pointer hover:bg-blue-100 text-left text-gray-800"
+                    >
+                      {item}
+                    </li>
+                  ))}
+                </>
+              )}
 
-            {filteredProviders.length > 0 && (
-              <>
-                <li className="flex items-center gap-2 px-4 py-2 text-left font-semibold text-gray-500 bg-gray-50 sticky top-0">
-                  <Users size={14} className="text-gray-400" />
-                  Providers
-                </li>
-                {filteredProviders.map((loc) => (
-                  <li
-                    key={`prov-${loc.id}`}
-                    // onClick={() => navigate(`/providers/${loc.id}`)}
-                    className="px-4 py-2 cursor-pointer hover:bg-blue-100 text-left"
-                  >
-                    {loc.title}
+              {filteredProviders.length > 0 && (
+                <>
+                  <li className="flex items-center gap-2 px-4 py-2 text-left font-semibold text-gray-500 bg-gray-50 sticky top-0">
+                    <Users size={14} className="text-gray-400" />
+                    Providers
                   </li>
-                ))}
-              </>
-            )}
-          </ul>
-        }
+                  {filteredProviders.map((loc) => (
+                    <li
+                      key={`prov-${loc.id}`}
+                      onClick={() => handleSelectItem(loc.title)}
+                      className="px-4 py-2 cursor-pointer hover:bg-blue-100 text-left"
+                    >
+                      {loc.title}
+                    </li>
+                  ))}
+                </>
+              )}
+            </ul>
+          )}
       </div>
     </div>
   );
