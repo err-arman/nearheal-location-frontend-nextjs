@@ -4,23 +4,27 @@ import { categories } from "@/lib/utils";
 import { Layers, Users } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 // import { useNavigate } from "react-router-dom";
-
+type SelectedItem = {
+  type: "category" | "provider";
+  value: string;
+};
 
 export default function CategoryDropdown({
   setSelectedItems,
   selectedItems,
 }: {
-  setSelectedItems: (value: any) => void;
-  selectedItems: string[];
+  setSelectedItems: (value: SelectedItem[]) => void;
+  selectedItems: SelectedItem[];
 }) {
-  const [inputValue, setInputValue] = useState(selectedItems[0] || "");
+  const [inputValue, setInputValue] = useState(
+    selectedItems[0]?.value || "" // ✅ only store string in input
+  );
   const [filteredCategories, setFilteredCategories] = useState<string[]>([]);
   const [filteredProviders, setFilteredProviders] = useState<Location[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   // @ts-ignore
   const debounceRef = useRef<NodeJS.Timeout>();
-  // const navigate = useNavigate();
 
   useEffect(() => {
     if (debounceRef.current) clearTimeout(debounceRef.current);
@@ -67,15 +71,24 @@ export default function CategoryDropdown({
     setFilteredCategories(filtered);
   }, [inputValue]);
 
-  const handleSelectItem = (item: string) => {
-    setSelectedItems([item]);
+  // --- Selection handlers ---
+  const handleSelectCategory = (item: string) => {
+    setSelectedItems([{ type: "category", value: item }]);
+    setInputValue(item);
+    setIsOpen(false);
+  };
+
+  const handleSelectProvider = (item: string) => {
+    setSelectedItems([{ type: "provider", value: item }]);
     setInputValue(item);
     setIsOpen(false);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && inputValue.trim() !== "") {
-      handleSelectItem(inputValue.trim());
+      // Default to category if user presses enter
+      setSelectedItems([{ type: "category", value: inputValue.trim() }]);
+      setIsOpen(false);
     }
   };
 
@@ -89,10 +102,11 @@ export default function CategoryDropdown({
             value={inputValue}
             onChange={(e) => {
               const value = e.target.value;
-              // Limit to 10 words
               if (value.trim().split(/\s+/).length <= 10) {
                 setInputValue(value);
-                setSelectedItems(value.trim() !== "" ? [value] : []);
+                if (value.trim() === "") {
+                  setSelectedItems([]);
+                }
               }
             }}
             onClick={() => setIsOpen(true)}
@@ -106,15 +120,15 @@ export default function CategoryDropdown({
             <ul className="absolute z-10 w-full mt-1 max-h-60 overflow-auto bg-white border rounded-lg shadow-lg">
               {filteredCategories.length > 0 && (
                 <>
-                  <li className="flex items-center gap-2 px-4 py-2 text-left font-semibold text-gray-700 bg-gray-50 sticky top-0">
+                  <li className="flex items-center gap-2 px-4 py-2 font-semibold text-gray-700 bg-gray-50 sticky top-0">
                     <Layers size={14} className="text-gray-400" />
                     NDIS Category
                   </li>
                   {filteredCategories.map((item, idx) => (
                     <li
                       key={`cat-${idx}`}
-                      onClick={() => handleSelectItem(item)}
-                      className="px-4 py-2 cursor-pointer hover:bg-blue-100 text-left text-gray-800"
+                      onClick={() => handleSelectCategory(item)}
+                      className="px-4 py-2 cursor-pointer hover:bg-blue-100 text-gray-800"
                     >
                       {item}
                     </li>
@@ -124,15 +138,15 @@ export default function CategoryDropdown({
 
               {filteredProviders.length > 0 && (
                 <>
-                  <li className="flex items-center gap-2 px-4 py-2 text-left font-semibold text-gray-500 bg-gray-50 sticky top-0">
+                  <li className="flex items-center gap-2 px-4 py-2 font-semibold text-gray-500 bg-gray-50 sticky top-0">
                     <Users size={14} className="text-gray-400" />
                     Providers
                   </li>
                   {filteredProviders.map((loc) => (
                     <li
                       key={`prov-${loc.id}`}
-                      onClick={() => handleSelectItem(loc.title)}
-                      className="px-4 py-2 cursor-pointer hover:bg-blue-100 text-left"
+                      onClick={() => handleSelectProvider(loc.title)}
+                      className="px-4 py-2 cursor-pointer hover:bg-blue-100"
                     >
                       {loc.title}
                     </li>

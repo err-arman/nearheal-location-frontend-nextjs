@@ -42,8 +42,8 @@ const Provider = () => {
   }, [searchParams]);
 
   useEffect(() => {
-    if(filterSearchTerm) console.log("filterSearchTerm:", filterSearchTerm);
-  }, [filterSearchTerm])
+    if (filterSearchTerm) console.log("filterSearchTerm:", filterSearchTerm);
+  }, [filterSearchTerm]);
 
   const currentPage = Number(searchParams.get("page") || 1);
   const [limit, setLimit] = useState<number>(10);
@@ -57,7 +57,7 @@ const Provider = () => {
   const [selectedLocationId, setSelectedLocationId] = useState<string | null>(
     null
   );
-    const [initialTextValueForSearchTerm, setInitialTextValueForSearchTerm] =
+  const [initialTextValueForSearchTerm, setInitialTextValueForSearchTerm] =
     useState("");
   const [initialTextValue, setInitialTextValue] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string[]>([]);
@@ -89,6 +89,7 @@ const Provider = () => {
     const newSearchTerm = searchParams.get("search") || "";
     const newRegion = searchParams.get("region") || null;
     const rawCategories = searchParams.get("categories") || null;
+    const rawName = searchParams.get("name") || null;
     const newCategories = rawCategories ? rawCategories.split(",") : [];
 
     // console.log(`Fetching locations with:
@@ -110,6 +111,7 @@ const Provider = () => {
         search: newSearchTerm || undefined,
         city: newRegion || undefined,
         categories: newCategories.length > 0 ? newCategories : undefined,
+        title: rawName || undefined,
         // priceFrom,
         // priceTo,
       });

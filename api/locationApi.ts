@@ -26,6 +26,10 @@ export const getLocations = async (
       params.append("categories", filters.categories.join(","));
     }
 
+    if (filters.title && filters.title.length > 0) {
+      params.append("title", filters.title);
+    }
+
     // Add price range filters
     if (filters.priceFrom)
       params.append("priceFrom", filters.priceFrom.toString());

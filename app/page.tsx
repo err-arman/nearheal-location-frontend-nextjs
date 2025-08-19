@@ -32,7 +32,10 @@ export default function HomePage() {
   const [selectedPlace, setSelectedPlace] = useState<SelectedPlace | null>(
     null
   );
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [selectedItems, setSelectedItems] = useState<
+    { type: "category" | "provider"; value: string }[]
+  >([]);
+
   const [initialTextValue, setInitialTextValue] = useState("");
   const router = useRouter();
   const { isLoggedIn, handleLogin, handleRegister, handleLogout, user } =
@@ -61,28 +64,6 @@ export default function HomePage() {
     fetchFeaturedLocations();
   }, []);
 
-  const handleSearch = () => {
-    const searchParams = new URLSearchParams();
-
-    if (selectedPlace?.description?.length) {
-      console.log("selectedPlace", selectedPlace);
-      searchParams.append("search", selectedPlace.description);
-    }
-
-    if (selectedCategories?.length) {
-      searchParams.set("categories", selectedCategories.join(","));
-    }
-
-    if (selectedRegion) {
-      searchParams.append("region", selectedRegion);
-    }
-
-    const queryString = searchParams.toString();
-    const url = queryString ? `/providers?${queryString}` : "/providers";
-
-    // For now, just log the URL since we don't have a providers page
-    console.log("Navigating to:", url);
-  };
 
   return (
     <div className="min-h-screen">
@@ -102,8 +83,8 @@ export default function HomePage() {
               <div className="bg-white p-3 rounded-lg shadow-lg flex flex-col md:flex-row gap-2">
                 <div className="relative flex-grow">
                   <CategoryDropdown
-                    selectedItems={selectedCategories}
-                    setSelectedItems={setSelectedCategories}
+                    selectedItems={selectedItems}
+                    setSelectedItems={setSelectedItems}
                   />
                 </div>
                 <div className="relative flex-grow">
@@ -124,11 +105,14 @@ export default function HomePage() {
                       searchParams.append("search", selectedPlace.description);
                     }
 
-                    selectedCategories?.length &&
-                      searchParams.set(
-                        "categories",
-                        selectedCategories.join(",")
-                      );
+                    if (selectedItems.length) {
+                      const selected = selectedItems[0];
+                      if (selected.type === "category") {
+                        searchParams.set("categories", selected.value);
+                      } else if (selected.type === "provider") {
+                        searchParams.set("name", selected.value);
+                      }
+                    }
 
                     if (selectedRegion) {
                       searchParams.append("region", selectedRegion);
@@ -162,9 +146,10 @@ export default function HomePage() {
                   Join the Nearheal Community
                 </h3>
                 <p className="text-base sm:text-lg text-primary-foreground mb-8 sm:mb-12 max-w-2xl mx-auto">
-                  Connect with healthcare providers and members in your community
+                  Connect with healthcare providers and members in your
+                  community
                 </p>
-                
+
                 <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center max-w-2xl mx-auto">
                   {/* Become a Member Button */}
                   <div className="w-full sm:w-auto sm:flex-1">
@@ -188,7 +173,9 @@ export default function HomePage() {
                             d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                           />
                         </svg>
-                        <span className="whitespace-nowrap">Become a Member</span>
+                        <span className="whitespace-nowrap">
+                          Become a Member
+                        </span>
                       </div>
                     </Button>
                   </div>
@@ -218,7 +205,9 @@ export default function HomePage() {
                             d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-2 0H3m2 0h4M9 7h6m-6 4h6m-6 4h6"
                           />
                         </svg>
-                        <span className="whitespace-nowrap">Join as Provider</span>
+                        <span className="whitespace-nowrap">
+                          Join as Provider
+                        </span>
                       </div>
                     </Button>
                   </div>

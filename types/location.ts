@@ -101,4 +101,5 @@ export interface LocationFilters {
   priceFrom?: number;
   priceTo?: number;
   userId?: string;
+  title?: string;
 }
