@@ -3,7 +3,7 @@ import { Location } from "@/types/location";
 import { categories } from "@/lib/utils";
 import { Layers, Users } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-// import { useNavigate } from "react-router-dom";
+
 type SelectedItem = {
   type: "category" | "provider";
   value: string;
@@ -17,7 +17,7 @@ export default function CategoryDropdown({
   selectedItems: SelectedItem[];
 }) {
   const [inputValue, setInputValue] = useState(
-    selectedItems[0]?.value || "" // ✅ only store string in input
+    selectedItems[0]?.value || ""
   );
   const [filteredCategories, setFilteredCategories] = useState<string[]>([]);
   const [filteredProviders, setFilteredProviders] = useState<Location[]>([]);
@@ -71,7 +71,6 @@ export default function CategoryDropdown({
     setFilteredCategories(filtered);
   }, [inputValue]);
 
-  // --- Selection handlers ---
   const handleSelectCategory = (item: string) => {
     setSelectedItems([{ type: "category", value: item }]);
     setInputValue(item);
@@ -86,7 +85,6 @@ export default function CategoryDropdown({
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && inputValue.trim() !== "") {
-      // Default to category if user presses enter
       setSelectedItems([{ type: "category", value: inputValue.trim() }]);
       setIsOpen(false);
     }
@@ -117,43 +115,60 @@ export default function CategoryDropdown({
         </div>
         {isOpen &&
           (filteredCategories.length > 0 || filteredProviders.length > 0) && (
-            <ul className="absolute z-10 w-full mt-1 max-h-60 overflow-auto bg-white border rounded-lg shadow-lg">
-              {filteredCategories.length > 0 && (
-                <>
-                  <li className="flex items-center gap-2 px-4 py-2 font-semibold text-gray-700 bg-gray-50 sticky top-0">
-                    <Layers size={14} className="text-gray-400" />
-                    NDIS Category
-                  </li>
-                  {filteredCategories.map((item, idx) => (
-                    <li
-                      key={`cat-${idx}`}
-                      onClick={() => handleSelectCategory(item)}
-                      className="px-4 py-2 cursor-pointer hover:bg-blue-100 text-gray-800"
-                    >
-                      {item}
+            <div 
+              className="absolute z-10 w-full mt-1 bg-white border rounded-lg shadow-lg"
+              style={{
+                maxHeight: '240px', // Explicit pixel height for better mobile support
+                height: 'auto',
+                minHeight: '60px'
+              }}
+            >
+              <ul 
+                className="overflow-y-auto overflow-x-hidden"
+                style={{
+                  maxHeight: '240px',
+                  height: 'auto',
+                  WebkitOverflowScrolling: 'touch', // Smooth scrolling on iOS
+                  scrollbarWidth: 'thin' // Firefox
+                }}
+              >
+                {filteredCategories.length > 0 && (
+                  <>
+                    <li className="flex items-center gap-2 px-4 py-2 font-semibold text-gray-700 bg-gray-50 sticky top-0 z-20">
+                      <Layers size={14} className="text-gray-400" />
+                      NDIS Category
                     </li>
-                  ))}
-                </>
-              )}
+                    {filteredCategories.map((item, idx) => (
+                      <li
+                        key={`cat-${idx}`}
+                        onClick={() => handleSelectCategory(item)}
+                        className="px-4 py-3 cursor-pointer hover:bg-blue-100 text-gray-800 active:bg-blue-200 touch-manipulation"
+                      >
+                        {item}
+                      </li>
+                    ))}
+                  </>
+                )}
 
-              {filteredProviders.length > 0 && (
-                <>
-                  <li className="flex items-center gap-2 px-4 py-2 font-semibold text-gray-500 bg-gray-50 sticky top-0">
-                    <Users size={14} className="text-gray-400" />
-                    Providers
-                  </li>
-                  {filteredProviders.map((loc) => (
-                    <li
-                      key={`prov-${loc.id}`}
-                      onClick={() => handleSelectProvider(loc.title)}
-                      className="px-4 py-2 cursor-pointer hover:bg-blue-100"
-                    >
-                      {loc.title}
+                {filteredProviders.length > 0 && (
+                  <>
+                    <li className="flex items-center gap-2 px-4 py-2 font-semibold text-gray-500 bg-gray-50 sticky top-0 z-20">
+                      <Users size={14} className="text-gray-400" />
+                      Providers
                     </li>
-                  ))}
-                </>
-              )}
-            </ul>
+                    {filteredProviders.map((loc) => (
+                      <li
+                        key={`prov-${loc.id}`}
+                        onClick={() => handleSelectProvider(loc.title)}
+                        className="px-4 py-3 cursor-pointer hover:bg-blue-100 active:bg-blue-200 touch-manipulation"
+                      >
+                        {loc.title}
+                      </li>
+                    ))}
+                  </>
+                )}
+              </ul>
+            </div>
           )}
       </div>
     </div>
