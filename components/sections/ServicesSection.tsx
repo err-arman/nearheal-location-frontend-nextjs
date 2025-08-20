@@ -126,10 +126,11 @@ export const ServicesSection = () => {
         <div className="bg-[#FEF7CD] p-6 sm:p-12 rounded-3xl">
           <div className="text-center mb-8 sm:mb-12">
             <h3 className="text-2xl sm:text-3xl font-bold text-primary-foreground mb-4">
-              A local provider that cares
+              Your Services, Your Control{" "}
             </h3>
             <p className="text-lg sm:text-xl text-primary-foreground/85">
-              join nearheal now to engage local community{" "}
+              Take control of the customization, upload contents, create
+              services and many more{" "}
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
@@ -154,6 +155,35 @@ export const ServicesSection = () => {
               height={300}
               className="rounded-2xl shadow-xl w-full aspect-video object-cover hidden lg:block"
             />
+          </div>
+
+          <div className="flex items-center justify-center gap-3 py-1 mt-10 sm:w-auto sm:flex-1 ">
+            <Button
+              asChild
+              size="lg"
+              variant="outline"
+              className="cursor-pointer bg-primary text-white px-6 sm:px-8 py-4 sm:py-5 text-base sm:text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+              onClick={() => {
+                window.location.href = `${process.env.NEXT_PUBLIC_NEARHEAL_LOCATION_ADMIN_URL}`;
+              }}
+            >
+              <div className="flex items-center justify-center gap-3 py-1">
+                <svg
+                  className="w-5 h-5 flex-shrink-0"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-2 0H3m2 0h4M9 7h6m-6 4h6m-6 4h6"
+                  />
+                </svg>
+                <span className="whitespace-nowrap">Join as a Provider</span>
+              </div>
+            </Button>
           </div>
         </div>
 

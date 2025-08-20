@@ -16,9 +16,7 @@ export default function CategoryDropdown({
   setSelectedItems: (value: SelectedItem[]) => void;
   selectedItems: SelectedItem[];
 }) {
-  const [inputValue, setInputValue] = useState(
-    selectedItems[0]?.value || ""
-  );
+  const [inputValue, setInputValue] = useState(selectedItems[0]?.value || "");
   const [filteredCategories, setFilteredCategories] = useState<string[]>([]);
   const [filteredProviders, setFilteredProviders] = useState<Location[]>([]);
   const [isOpen, setIsOpen] = useState(false);
@@ -115,21 +113,21 @@ export default function CategoryDropdown({
         </div>
         {isOpen &&
           (filteredCategories.length > 0 || filteredProviders.length > 0) && (
-            <div 
+            <div
               className="absolute z-10 w-full mt-1 bg-white border rounded-lg shadow-lg"
               style={{
-                maxHeight: '240px', // Explicit pixel height for better mobile support
-                height: 'auto',
-                minHeight: '60px'
+                maxHeight: "240px",
+                height: "auto",
+                minHeight: "60px",
               }}
             >
-              <ul 
+              <ul
                 className="overflow-y-auto overflow-x-hidden"
                 style={{
-                  maxHeight: '240px',
-                  height: 'auto',
-                  WebkitOverflowScrolling: 'touch', // Smooth scrolling on iOS
-                  scrollbarWidth: 'thin' // Firefox
+                  maxHeight: "240px",
+                  height: "auto",
+                  WebkitOverflowScrolling: "touch",
+                  scrollbarWidth: "thin",
                 }}
               >
                 {filteredCategories.length > 0 && (

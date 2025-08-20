@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Check, ChevronsUpDown, X } from "lucide-react";
+import { Check, ChevronsUpDown, Users, X } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import {
@@ -24,15 +24,19 @@ import {
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { categories } from "@/utils/constant";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import BasicSearchInput from "@/components/search/BasicSearchInput";
 import PlaceAutoComplete from "../search/PlaceAutoComplete";
 import { useRouter, useSearchParams } from "next/navigation";
+import { Location } from "@/types/location";
+import { getLocations } from "@/api/locationApi";
 interface FilterSidebarProps {
   filterSearchTerm: string;
   setFilterSearchTerm: (value: string) => void;
   fetchLocation: () => void;
   selectedCategory: string[];
+  selectedTitle: string | null;
+  setSelectedTitle: (value: any) => void;
   setSelectedCategory: (categories: string[]) => void;
   priceFilter: string[];
   setPriceFilter: (prices: string[]) => void;
@@ -66,6 +70,8 @@ const FilterSidebar = ({
   showCategories = true,
   showPlaces = true,
   showTitle = true,
+  selectedTitle,
+  setSelectedTitle,
 }: // clickedReset,
 FilterSidebarProps) => {
   // NDIS Categories
@@ -77,9 +83,10 @@ FilterSidebarProps) => {
   useEffect(() => {
     const search = searchParams.get("search") || "";
     const region = searchParams.get("region") || null;
+    const title = searchParams.get("title") || null;
     const categories =
       searchParams.get("categories")?.split(",").filter(Boolean) || [];
-
+    setSelectedTitle(title);
     setFilterSearchTerm(search);
     setSelectedRegion(region);
     setSelectedCategory(categories);
@@ -88,6 +95,66 @@ FilterSidebarProps) => {
       fetchLocation();
     }
   }, []);
+
+  // keep your normal local input state
+
+  // 🔑 whenever `selectedTitle` changes (set in useEffect),
+  // also sync it into the input field
+  useEffect(() => {
+    if (selectedTitle) {
+      setInputValue(selectedTitle);
+    } else {
+      setInputValue("");
+    }
+  }, [selectedTitle]);
+
+  const debounceRef = useRef<NodeJS.Timeout>(null);
+  const [inputValue, setInputValue] = useState("");
+  const [filteredProviders, setFilteredProviders] = useState<Location[]>([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedItems, setSelectedItems] = useState<string>();
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    if (inputValue.trim() === "") {
+      setFilteredProviders([]);
+      return;
+    }
+
+    debounceRef.current = setTimeout(async () => {
+      try {
+        const res = await getLocations({
+          page: 1,
+          limit: 10,
+          search: inputValue.trim(),
+        });
+        setFilteredProviders(res?.data ?? []);
+      } catch (err) {
+        console.error("Error fetching locations:", err);
+      }
+    }, 400);
+  }, [inputValue]);
+
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
+
+  const handleSelectProvider = (item: string) => {
+    setSelectedItems(item);
+    setInputValue(item);
+    setFilteredProviders([]);
+    setIsOpen(false);
+  };
 
   const handleSearch = () => {
     const params = new URLSearchParams();
@@ -109,20 +176,66 @@ FilterSidebarProps) => {
     if (selectedCategory.length > 0) {
       params.set("categories", selectedCategory.join(","));
     }
+    if (selectedItems?.length) {
+      params.set("title", selectedItems);
+    }
 
     router.push(`${window.location.pathname}?${params.toString()}`);
   };
 
   return (
-    <div className="flex flex-col gap-4">
-      <h3 className="text-lg font-semibold">Filters</h3>
-      {showTitle && (
+    <div className="flex flex-col gap-4 relative">
+      <h3 className="text-lg font-semibold ">Filters</h3>
+      <div className="relative" ref={dropdownRef}>
         <BasicSearchInput
-          value={title!}
-          onChange={setTitle!}
-          placeholder="Search by title"
+          value={inputValue}
+          onChange={(value: any) => {
+            if (value.trim().split(/\s+/).length <= 10) {
+              setInputValue(value);
+              if (value.trim() === "") {
+                setSelectedItems("");
+                setFilteredProviders([]);
+              }
+            }
+          }}
+          onClick={() => setIsOpen(true)}
+          onFocus={() => setIsOpen(true)}
+          placeholder="Search by provider name"
+          className="bg-white"
         />
-      )}
+
+        {isOpen && filteredProviders.length > 0 && (
+          <div
+            className="
+        absolute left-0 right-0 mt-1 z-50
+        rounded-md border bg-white shadow-lg
+        max-h-[240px] overflow-y-auto
+      "
+            style={{
+              WebkitOverflowScrolling: "touch",
+              scrollbarWidth: "thin",
+            }}
+          >
+            <ul className="divide-y divide-gray-100">
+              <li className="sticky top-0 z-10 bg-gray-50 flex items-center gap-2 px-4 py-2 font-semibold text-gray-500">
+                <Users size={14} className="text-gray-400" />
+                Providers
+              </li>
+              {filteredProviders.map((loc) => (
+                <li
+                  key={`prov-${loc.id}`}
+                  // onMouseDown={(e) => e.preventDefault()} {/* prevent input blur */}
+                  onClick={() => handleSelectProvider(loc.title)}
+                  className="px-4 py-3 cursor-pointer hover:bg-blue-100 active:bg-blue-200"
+                >
+                  {loc.title}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+
       {showPlaces && (
         <div className="relative">
           <PlaceAutoComplete

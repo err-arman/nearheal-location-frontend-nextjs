@@ -348,7 +348,7 @@ const FavoritePage = () => {
                 }}
                 showCategories={false}
                 showRegion={false}
-                showTitle={false}
+                showTitle={true}
                 setInitialTextValue={setInitialTextValue}
                 initialTextValue={initialTextValue}
               />
@@ -416,8 +416,8 @@ const FavoritePage = () => {
                 onResetFilters={resetFilters}
                 fetchLocation={fetchLocations}
                 showCategories={false}
-                showRegion={true}
-                showTitle={false}
+                showRegion={false}
+                showTitle={true}
                 setInitialTextValue={setInitialTextValue}
                 initialTextValue={initialTextValue}
               />

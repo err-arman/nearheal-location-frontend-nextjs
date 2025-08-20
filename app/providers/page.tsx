@@ -57,6 +57,7 @@ const Provider = () => {
   const [selectedLocationId, setSelectedLocationId] = useState<string | null>(
     null
   );
+  const [selectedTitle, setSelectedTitle] = useState<string | null>(null);
   const [initialTextValueForSearchTerm, setInitialTextValueForSearchTerm] =
     useState("");
   const [initialTextValue, setInitialTextValue] = useState("");
@@ -89,7 +90,7 @@ const Provider = () => {
     const newSearchTerm = searchParams.get("search") || "";
     const newRegion = searchParams.get("region") || null;
     const rawCategories = searchParams.get("categories") || null;
-    const rawName = searchParams.get("name") || null;
+    const rawName = searchParams.get("title") || null;
     const newCategories = rawCategories ? rawCategories.split(",") : [];
 
     // console.log(`Fetching locations with:
@@ -161,17 +162,20 @@ const Provider = () => {
     const categories = searchParams.get("categories");
     const search = searchParams.get("search");
     const region = searchParams.get("region");
+    const title = searchParams.get("title");
 
-    if (categories || search || region) {
+    if (categories || search || region || title) {
       setSelectedCategory(categories ? categories.split(",") : []);
       setInitialTextValue(search || "");
       setInitialTextValueForSearchTerm(search || "");
       setSelectedRegion(region || null);
+      setSelectedTitle(title);
     } else {
       setSelectedCategory([]);
       setInitialTextValue("");
       setInitialTextValueForSearchTerm("");
       setSelectedRegion(null);
+      setSelectedTitle(null);
     }
   }, [location.search]);
 
@@ -299,7 +303,10 @@ const Provider = () => {
                 fetchLocation={() => {
                   fetchLocations();
                 }}
-                showTitle={false}
+                selectedTitle={selectedTitle}
+                setSelectedTitle={setSelectedTitle}
+                showTitle={true}
+                showRegion={false}
               />
             </div>
           </DrawerContent>
@@ -366,7 +373,10 @@ const Provider = () => {
                 setSelectedRegion={setSelectedRegion}
                 onResetFilters={resetFilters}
                 fetchLocation={fetchLocations}
-                showTitle={false}
+                selectedTitle={selectedTitle}
+                setSelectedTitle={setSelectedTitle}
+                showRegion={false}
+                showTitle={true}
               />
             </div>
           </div>

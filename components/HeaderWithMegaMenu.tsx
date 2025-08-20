@@ -172,7 +172,7 @@ export const HeaderWithMegaMenu = ({
       </header>
 
       {/* Mobile Navigation */}
-    {isMobile && isMenuOpen && (
+      {isMobile && isMenuOpen && (
         <div
           className="md:hidden py-4 border-t fade-in bg-white fixed w-full left-0 right-0 h-full overflow-auto pb-32"
           style={{
@@ -184,8 +184,8 @@ export const HeaderWithMegaMenu = ({
           <div className="container mx-auto px-3 md:px-4">
             <div className="flex flex-col space-y-4">
               <nav className="flex flex-col space-y-4">
-                <MegaMenu />
-                <JoinMenu />
+                {/* <MegaMenu />
+                <JoinMenu /> */}
                 <Link
                   href="/#"
                   className="text-gray-700 hover:text-primary transition-colors px-4"

@@ -110,7 +110,7 @@ export default function HomePage() {
                       if (selected.type === "category") {
                         searchParams.set("categories", selected.value);
                       } else if (selected.type === "provider") {
-                        searchParams.set("name", selected.value);
+                        searchParams.set("title", selected.value);
                       }
                     }
 
