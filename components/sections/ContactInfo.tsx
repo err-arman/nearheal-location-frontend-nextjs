@@ -7,10 +7,12 @@ import {
   Map,
   ExternalLink,
   ArrowRight,
+  CheckCircle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Location } from "@/types/location";
 import GoogleMap from "@/components/ui/GoogleMap";
+import Link from "next/link";
 
 interface ContactInfoProps {
   location: Location;
@@ -65,7 +67,7 @@ const ContactInfo: React.FC<ContactInfoProps> = ({ location }) => {
           </div>
           {/* Contact Form */}
           <div className="lg:col-span-7">
-            <form className="space-y-6">
+            <form className="space-y-6" id="contact">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label htmlFor="name" className="block text-sm font-medium">
@@ -173,6 +175,26 @@ const ContactInfo: React.FC<ContactInfoProps> = ({ location }) => {
                     Saturday - Sunday : 11:00 - 18:00
                   </p>
                 </div>
+
+                {location.claimStatus === "Not claimed" ? (
+                  <div className="">
+                    <Link
+                      href={`${process.env.NEXT_PUBLIC_NEARHEAL_LOCATION_ADMIN_URL}`}
+                    >
+                      <Button
+                        variant="outline"
+                        className="bg-[#e5b45b] text-[#2d4c41]"
+                      >
+                        Claim
+                      </Button>
+                    </Link>
+                  </div>
+                ) : (
+                  <div className="ml-2 inline-flex items-center self-center">
+                    <CheckCircle className="h-4 w-4 text-[#e5b45b]" />
+                    <span className="text-xs text-[#e5b45b] ml-1">Claimed</span>
+                  </div>
+                )}
 
                 <div>
                   <h3 className="text-xl font-semibold mb-4">Stay Connected</h3>

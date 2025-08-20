@@ -185,9 +185,11 @@ const LocationCard = ({
           {/* Title and rating */}
           <div className="flex-1 min-w-0">
             <div className="flex">
-              <h3 className="text-lg font-semibold line-clamp-1 group-hover:text-primary transition-colors w-full">
-                {location.title}
-              </h3>
+              <Link href={`/providers/${location.id}`}>
+                <h3 className="text-lg font-semibold line-clamp-1 group-hover:text-primary transition-colors w-full">
+                  {location.title}
+                </h3>
+              </Link>
               <span className="ml-2 cursor-pointer" onClick={handleFavorite}>
                 <img
                   src={!!favorite ? "/images/fav-fill.svg" : "/images/fav.svg"}

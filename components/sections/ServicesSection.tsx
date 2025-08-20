@@ -12,7 +12,7 @@ export const ServicesSection = () => {
     <section className="py-12 sm:py-20">
       <div className="container mx-auto px-4 space-y-16 sm:space-y-32">
         {/* Affordable Assistance - Stacked Cards */}
-        <div className="relative">
+        {/* <div className="relative">
           <div className="bg-[#F1F0FB] p-6 sm:p-12 rounded-3xl">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
               <div>
@@ -42,7 +42,7 @@ export const ServicesSection = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* Tailored Services - Stacked Cards */}
         {/* <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center bg-[#D3E4FD] p-6 sm:p-12 rounded-3xl">

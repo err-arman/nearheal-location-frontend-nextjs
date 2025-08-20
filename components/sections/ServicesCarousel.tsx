@@ -30,33 +30,33 @@ const ServicesCarousel: React.FC<ServicesCarouselProps> = ({ location }) => {
   const services: ServiceItem[] | Service[] = location?.services?.length
     ? location.services
     : [
-        {
-          title: "Architectural Design",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do",
-          image:
-            "https://images.unsplash.com/photo-1503387762-592deb58ef4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2089&q=80",
-          category: "Design",
-          duration: "2-4 weeks",
-        },
-        {
-          title: "Interior Design",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do",
-          image:
-            "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2700&q=80",
-          category: "Design",
-          duration: "1-3 weeks",
-        },
-        {
-          title: "Hospitality Design",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do",
-          image:
-            "https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2671&q=80",
-          category: "Hospitality",
-          duration: "3-6 weeks",
-        },
+        // {
+        //   title: "Architectural Design",
+        //   description:
+        //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do",
+        //   image:
+        //     "https://images.unsplash.com/photo-1503387762-592deb58ef4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2089&q=80",
+        //   category: "Design",
+        //   duration: "2-4 weeks",
+        // },
+        // {
+        //   title: "Interior Design",
+        //   description:
+        //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do",
+        //   image:
+        //     "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2700&q=80",
+        //   category: "Design",
+        //   duration: "1-3 weeks",
+        // },
+        // {
+        //   title: "Hospitality Design",
+        //   description:
+        //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do",
+        //   image:
+        //     "https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2671&q=80",
+        //   category: "Hospitality",
+        //   duration: "3-6 weeks",
+        // },
         ...(location?.categories || []).map((category) => ({
           title: category,
           description: "Professional NDIS service tailored to your needs",

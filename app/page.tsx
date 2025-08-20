@@ -72,10 +72,10 @@ export default function HomePage() {
           <div className="relative bg-gradient-to-r bg-slate-200 rounded-3xl p-4 sm:p-8 lg:p-16">
             <div className="max-w-4xl mx-auto text-center">
               <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-primary-foreground mb-4">
-                Find Your Ideal Support Services
+                Find Your Local Support Services
               </h3>
               <p className="text-lg sm:text-xl text-primary-foreground mb-8">
-                Discover prime providers with comprehensive data to help you
+                Discover providers near you with comprehensive data to help you
                 make informed decisions.
               </p>
 
@@ -206,7 +206,7 @@ export default function HomePage() {
                           />
                         </svg>
                         <span className="whitespace-nowrap">
-                          Join as Provider
+                          Join as a Provider
                         </span>
                       </div>
                     </Button>

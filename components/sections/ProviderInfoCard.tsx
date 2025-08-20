@@ -43,25 +43,6 @@ const ProviderInfoCard: React.FC<ProviderInfoCardProps> = ({ location }) => {
             </h2>
           </div>
 
-          {/* Claimed badge - vertically centered */}
-          {location.claimStatus === "Not claimed" ? (
-            <div className="">
-              <Link href={`${process.env.NEXT_PUBLIC_NEARHEAL_LOCATION_ADMIN_URL}`}>
-                <Button
-                  variant="outline"
-                  className="bg-[#e5b45b] text-[#2d4c41]"
-                >
-                  Claim
-                </Button>
-              </Link>
-            </div>
-          ) : (
-            <div className="ml-2 inline-flex items-center self-center">
-              <CheckCircle className="h-4 w-4 text-[#e5b45b]" />
-              <span className="text-xs text-[#e5b45b] ml-1">Claimed</span>
-            </div>
-          )}
-
           <p className="text-[#3a5f52] text-sm italic mb-2">
             We Are Here for You
           </p>
