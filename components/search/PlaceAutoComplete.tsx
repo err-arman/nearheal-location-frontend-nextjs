@@ -69,20 +69,24 @@ const PlaceAutoComplete = (
     let { description, place_id, structured_formatting } = suggestion;
     description = description.replace(/, Australia$/, "");
     // Remove state abbreviation at the end, with or without comma
-    description = description.replace(
-      /\s?(,)?\s?(ACT|NSW|NT|QLD|SA|TAS|VIC|WA)$/,
-      ""
-    );
-    // Remove any trailing comma and space
-    description = description.replace(/,\s*$/, "");
+    // description = description.replace(
+    //   /\s?(,)?\s?(ACT|NSW|NT|QLD|SA|TAS|VIC|WA)$/,
+    //   ""
+    // );
+    // // Remove any trailing comma and space
+    // description = description.replace(/,\s*$/, "");
 
-    description = description.replace(/,\s*$/, "");
+    // description = description.replace(/,\s*$/, "");
+    // setValue(description, false);
+    // clearSuggestions();
 
-    setValue(description, false);
+    const fullAddress = description;
+
+    setValue(fullAddress, false);
     clearSuggestions();
 
     try {
-      setInitialTextValue(description);
+      setInitialTextValue(fullAddress);
       const geocodes = await getGeocode({ address: description });
       const { lat, lng } = getLatLng(geocodes[0]);
       const results = await getDetails({ placeId: place_id });
@@ -96,6 +100,7 @@ const PlaceAutoComplete = (
         place_id,
         lat: lat.toString(),
         lng: lng.toString(),
+        full_address: fullAddress, // Add full address to the selected place object
       });
     } catch (error) {
       console.error("Error getting place details", error);

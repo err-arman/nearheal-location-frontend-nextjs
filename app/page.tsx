@@ -16,6 +16,7 @@ import { Location } from "@/types/location";
 import { useAuth } from "@/hooks/useAuth";
 
 export interface SelectedPlace {
+  full_address: string | null;
   main_text: string | null;
   secondary_text: string | null;
   description: string | null;
@@ -101,8 +102,8 @@ export default function HomePage() {
                   onClick={() => {
                     const searchParams = new URLSearchParams();
 
-                    if (selectedPlace?.description?.length) {
-                      searchParams.append("search", selectedPlace.description);
+                    if (selectedPlace?.full_address?.length) {
+                      searchParams.append("search", selectedPlace.full_address);
                     }
 
                     if (selectedItems.length) {
