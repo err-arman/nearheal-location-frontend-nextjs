@@ -73,7 +73,7 @@ export const HeaderWithMegaMenu = ({
               {/* <MegaMenu /> */}
               {/* <JoinMenu /> */}
               <Link
-                href="/#about"
+                href="/about-us"
                 className="text-gray-700 hover:text-primary transition-colors"
               >
                 About
@@ -187,7 +187,7 @@ export const HeaderWithMegaMenu = ({
                 {/* <MegaMenu />
                 <JoinMenu /> */}
                 <Link
-                  href="/#"
+                  href="/about-us"
                   className="text-gray-700 hover:text-primary transition-colors px-4"
                 >
                   About
