@@ -79,7 +79,7 @@ export const HeaderWithMegaMenu = ({
                 About
               </Link>
               <Link
-                href="/#contact"
+                href="/contact"
                 className="text-gray-700 hover:text-primary transition-colors"
               >
                 Contact
@@ -193,7 +193,7 @@ export const HeaderWithMegaMenu = ({
                   About
                 </Link>
                 <Link
-                  href="/#"
+                  href="/contact"
                   className="text-gray-700 hover:text-primary transition-colors px-4"
                 >
                   Contact
