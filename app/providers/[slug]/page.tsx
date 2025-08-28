@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { ArrowUp } from "lucide-react";
 import {
-  getLocationById,
+  getLocationSlug,
   getLocationPlaceholderImage,
 } from "@/api/locationApi";
 import { Location } from "@/types/location";
@@ -19,7 +19,7 @@ import ProviderInfoCard from "@/components/sections/ProviderInfoCard";
 import ProviderLayout from "@/components/layout/ProviderLayout";
 
 const BusinessDetails = () => {
-  const { id } = useParams<{ id: string }>();
+  const { slug } = useParams<{ slug: string }>();
   const [location, setLocation] = useState<Location | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -50,13 +50,13 @@ const BusinessDetails = () => {
   // Fetch location details from API
   useEffect(() => {
     const fetchLocationDetails = async () => {
-      if (!id) return;
+      if (!slug) return;
 
       setIsLoading(true);
       setError(null);
 
       try {
-        const locationData = await getLocationById(id);
+        const locationData = await getLocationSlug(slug);
         if (locationData) {
           setLocation(locationData);
         } else {
@@ -71,7 +71,7 @@ const BusinessDetails = () => {
     };
 
     fetchLocationDetails();
-  }, [id]);
+  }, [slug]);
 
   // Scroll to top function
   const scrollToTop = () => {

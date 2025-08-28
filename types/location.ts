@@ -82,6 +82,7 @@ export interface Location {
   createdAt: string;
   updatedAt: string;
   favoriteId?: string;
+  slug: string;
 }
 
 export interface LocationsResponse {

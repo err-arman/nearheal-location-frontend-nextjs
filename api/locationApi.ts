@@ -68,6 +68,16 @@ export const getLocationById = async (id: string): Promise<Location | null> => {
   }
 };
 
+export const getLocationSlug = async (slug: string): Promise<Location | null> => {
+  try {
+    const response = await axiosInstance.get<Location>(`/location/slug/${slug}`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error fetching location with Slug ${slug}:`, error);
+    return null;
+  }
+};
+
 /**
  * Get the placeholder image URL for locations without gallery
  * @returns URL of the placeholder image
