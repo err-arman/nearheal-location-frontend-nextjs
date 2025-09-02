@@ -291,7 +291,7 @@ export default function HomePage() {
                                   : location.description}
                               </p>
                               <Link
-                                href={`/providers/${location.id}`}
+                                href={`/providers/${location.slug}`}
                                 className="text-primary hover:text-primary/80 font-medium flex items-center text-sm mt-2"
                               >
                                 View Details
