@@ -1,25 +1,36 @@
-  export const metadata = {
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_APP_URL || "https://nearheal.com"
+  ),
+  title: "About Nearheal - Our Mission & Vision",
+  description:
+    "Learn about Nearheal's mission to build an innovative, resilient, and competitive health service eco-system in Australia.",
+  openGraph: {
+    type: "website",
     title: "About Nearheal - Our Mission & Vision",
     description:
       "Learn about Nearheal's mission to build an innovative, resilient, and competitive health service eco-system in Australia.",
-    openGraph: {
-      title: "About Nearheal - Our Mission & Vision",
-      description:
-        "Learn about Nearheal's mission to build an innovative, resilient, and competitive health service eco-system in Australia.",
-      images: [
-        {
-          url: `${process.env.NEXT_PUBLIC_APP_URL}/near_heal_logo.jpeg`,
-          width: 1200,
-          height: 630,
-          alt: "About Nearheal",
-        },
-      ],
-    },
-  };
-
+    images: [
+      {
+        url: "/near_heal_logo.jpeg", // Note: don't include domain here
+        width: 1200,
+        height: 630,
+        alt: "About Nearheal",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About Nearheal - Our Mission & Vision",
+    description:
+      "Learn about Nearheal's mission to build an innovative, resilient, and competitive health service eco-system in Australia.",
+    images: ["/near_heal_logo.jpeg"], // Note: don't include domain here
+  },
+};
 
 export default function AboutPage() {
-
   return (
     <div className="min-h-screen bg-background mt-10">
       <main className="container mx-auto px-4 py-8 sm:py-12 lg:py-16">
