@@ -14,7 +14,10 @@ export const metadata: Metadata = {
       "Learn about Nearheal's mission to build an innovative, resilient, and competitive health service eco-system in Australia.",
     images: [
       {
-        url: "/near_heal_logo.jpeg", // Note: don't include domain here
+        url: new URL(
+          "/near_heal_logo.jpeg",
+          process.env.NEXT_PUBLIC_APP_URL || "https://nearheal.com"
+        ).toString(),
         width: 1200,
         height: 630,
         alt: "About Nearheal",
@@ -26,7 +29,7 @@ export const metadata: Metadata = {
     title: "About Nearheal - Our Mission & Vision",
     description:
       "Learn about Nearheal's mission to build an innovative, resilient, and competitive health service eco-system in Australia.",
-    images: ["/near_heal_logo.jpeg"], // Note: don't include domain here
+    images: ["/near_heal_logo.jpeg"],
   },
 };
 
