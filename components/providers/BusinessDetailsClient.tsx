@@ -18,73 +18,15 @@ import ProviderHeader from "@/components/sections/ProviderHeader";
 import ProviderInfoCard from "@/components/sections/ProviderInfoCard";
 import ProviderLayout from "@/components/layout/ProviderLayout";
 
-import { Metadata } from "next";
-
-// Add this type
-type Props = {
-  params: { slug: string };
-};
-
-// Add generateMetadata function
-async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const location = await getLocationSlug(params.slug);
-
-  if (!location) {
-    return {
-      title: "Provider Not Found | Nearheal",
-      description: "The requested healthcare provider could not be found.",
-    };
-  }
-
-  const images =
-    location.gallery && location.gallery.length > 0
-      ? [
-          {
-            url: location.gallery[0],
-            width: 1200,
-            height: 630,
-            alt: location.title,
-          },
-        ]
-      : [
-          {
-            url: "/near_heal_logo.jpeg",
-            width: 1200,
-            height: 630,
-            alt: "Nearheal Provider",
-          },
-        ];
-
-  return {
-    title: `${location.title} - Healthcare Provider`,
-    description:
-      location.description ||
-      `Learn more about ${location.title} and their healthcare services on Nearheal`,
-    openGraph: {
-      title: location.title,
-      description: location.description,
-      images,
-      type: "article",
-      url: `/providers/${params.slug}`,
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: location.title,
-      description: location.description,
-      images: [images[0].url],
-    },
-  };
-}
-
 interface BusinessDetailsClientProps {
-  params: { slug: string };
+  slug: string;
 }
 
 const BusinessDetailsClient: React.FC<BusinessDetailsClientProps> = ({
-  params,
+  slug,
 }) => {
-  //   const { slug } = useParams<{ slug: string }>();
-  const { slug } = params;
+  console.log("slug", slug);
+  //   const { slug } = params;
   const [location, setLocation] = useState<Location | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);

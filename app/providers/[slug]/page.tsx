@@ -5,13 +5,14 @@ import BusinessDetailsClient from "@/components/providers/BusinessDetailsClient"
 
 // Add this type
 type Props = {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 };
 
 // Generate metadata function - now properly in server component
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
   try {
-    const location = await getLocationSlug(params.slug);
+    const location = await getLocationSlug(slug);
 
     if (!location) {
       return {
@@ -22,7 +23,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
           description: "The requested healthcare provider could not be found.",
           images: [
             {
-              url: `${process.env.NEXT_PUBLIC_APP_URL || 'https://nearheal.com'}/near_heal_logo.jpeg`,
+              url: `${
+                process.env.NEXT_PUBLIC_APP_URL || "https://nearheal.com"
+              }/near_heal_logo.jpeg`,
               width: 1200,
               height: 630,
               alt: "Nearheal",
@@ -36,9 +39,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       location.gallery && location.gallery.length > 0
         ? [
             {
-              url: location.gallery[0].startsWith('http') 
-                ? location.gallery[0] 
-                : `${process.env.NEXT_PUBLIC_APP_URL || 'https://nearheal.com'}${location.gallery[0]}`,
+              url: location.gallery[0].startsWith("http")
+                ? location.gallery[0]
+                : `${
+                    process.env.NEXT_PUBLIC_APP_URL || "https://nearheal.com"
+                  }${location.gallery[0]}`,
               width: 1200,
               height: 630,
               alt: location.title,
@@ -46,14 +51,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
           ]
         : [
             {
-              url: `${process.env.NEXT_PUBLIC_APP_URL || 'https://nearheal.com'}/near_heal_logo.jpeg`,
+              url: `${
+                process.env.NEXT_PUBLIC_APP_URL || "https://nearheal.com"
+              }/near_heal_logo.jpeg`,
               width: 1200,
               height: 630,
               alt: "Nearheal Provider",
             },
           ];
 
-    const description = location.description || 
+    const description =
+      location.description ||
       `Learn more about ${location.title} and their healthcare services on Nearheal. Find contact information, services, and more.`;
 
     return {
@@ -65,12 +73,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         "healthcare provider",
         "medical services",
         "NDIS services",
-        "Australia healthcare"
+        "Australia healthcare",
       ],
       openGraph: {
         type: "article",
-        locale: "en_AU", 
-        url: `${process.env.NEXT_PUBLIC_APP_URL || 'https://nearheal.com'}/providers/${params.slug}`,
+        locale: "en_AU",
+        url: `${
+          process.env.NEXT_PUBLIC_APP_URL || "https://nearheal.com"
+        }/providers/${slug}`,
         title: `${location.title} - Healthcare Provider`,
         description: description,
         siteName: "Nearheal",
@@ -83,21 +93,27 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         images: [images[0].url],
       },
       alternates: {
-        canonical: `${process.env.NEXT_PUBLIC_APP_URL || 'https://nearheal.com'}/providers/${params.slug}`,
+        canonical: `${
+          process.env.NEXT_PUBLIC_APP_URL || "https://nearheal.com"
+        }/providers/${slug}`,
       },
     };
   } catch (error) {
-    console.error('Error generating metadata for provider:', error);
-    
+    console.error("Error generating metadata for provider:", error);
+
     return {
       title: "Healthcare Provider | Nearheal",
-      description: "Find healthcare providers and medical services on Nearheal.",
+      description:
+        "Find healthcare providers and medical services on Nearheal.",
       openGraph: {
-        title: "Healthcare Provider | Nearheal", 
-        description: "Find healthcare providers and medical services on Nearheal.",
+        title: "Healthcare Provider | Nearheal",
+        description:
+          "Find healthcare providers and medical services on Nearheal.",
         images: [
           {
-            url: `${process.env.NEXT_PUBLIC_APP_URL || 'https://nearheal.com'}/near_heal_logo.jpeg`,
+            url: `${
+              process.env.NEXT_PUBLIC_APP_URL || "https://nearheal.com"
+            }/near_heal_logo.jpeg`,
             width: 1200,
             height: 630,
             alt: "Nearheal",
@@ -108,6 +124,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-export default function ProviderSlugPage({ params }: Props) {
-  return <BusinessDetailsClient params={params} />;
+export default async function ProviderSlugPage({ params }: Props) {
+  const { slug } = await params;
+  return <BusinessDetailsClient slug={slug} />;
 }
