@@ -8,7 +8,7 @@
         "Learn about Nearheal's mission to build an innovative, resilient, and competitive health service eco-system in Australia.",
       images: [
         {
-          url: "/near_heal_logo.jpeg",
+          url: `${process.env.NEXT_PUBLIC_APP_URL}/near_heal_logo.jpeg`,
           width: 1200,
           height: 630,
           alt: "About Nearheal",
