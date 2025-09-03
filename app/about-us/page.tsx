@@ -27,23 +27,34 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_AU",
-    url: "/",
-    title: "Nearheal - Healthcare Platform",
-    description: "Your complete healthcare and learning platform, connecting professionals worldwide.",
+    url: "/about-us",
+    title: "About Nearheal - Our Mission & Vision",
+    description:
+      "Learn about Nearheal's mission to build an innovative, resilient, and competitive health service eco-system in Australia.",
     siteName: "Nearheal",
-    images: [{
-      url: "/near_heal_logo.jpeg",
-      width: 1200,
-      height: 630,
-      alt: "Nearheal - Healthcare Platform"
-    }],
+    images: [
+      {
+        url: new URL(
+          "/near_heal_logo.jpeg",
+          process.env.NEXT_PUBLIC_APP_URL || "https://nearheal.com"
+        ).toString(),
+        width: 1200,
+        height: 630,
+        alt: "About Nearheal",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "About Nearheal - Our Mission & Vision",
     description:
       "Learn about Nearheal's mission to build an innovative, resilient, and competitive health service eco-system in Australia.",
-    images: ["/near_heal_logo.jpeg"],
+    images: [
+      new URL(
+        "/near_heal_logo.jpeg",
+        process.env.NEXT_PUBLIC_APP_URL || "https://nearheal.com"
+      ).toString(),
+    ],
   },
 };
 
