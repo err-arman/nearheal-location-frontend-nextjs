@@ -8,16 +8,8 @@ import { FooterSection } from "@/components/FooterSection";
 import { Libraries, LoadScript } from "@react-google-maps/api";
 import GoogleMapsProvider from "./LayoutWrapper";
 
-// const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"] });
 
-// export const metadata: Metadata = {
-//   icons: {
-//     icon: "near_heal_logo.jpeg",
-//   },
-//   title: "Nearheal - Healthcare Platform",
-//   description:
-//     "Your complete healthcare and learning platform, connecting professionals worldwide.",
-// };
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://nearheal.com'),

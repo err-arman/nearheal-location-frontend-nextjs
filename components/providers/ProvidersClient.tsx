@@ -1,5 +1,3 @@
-"use client";
-
 import { getLocationPlaceholderImage, getLocations } from "@/api/locationApi";
 import { useEffect, useMemo, useState } from "react";
 import { Location } from "@/types/location";
