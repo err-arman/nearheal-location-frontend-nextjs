@@ -3,7 +3,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "About Us | Nearheal",
   description:
-    "Learn more about Nearheal’s mission, vision, and values. We are a healthcare and learning platform committed to empowering communities with world-class health services.",
+    "Learn more about Nearheal's mission, vision, and values. We are a healthcare and learning platform committed to empowering communities with world-class health services.",
   keywords: [
     "About Nearheal",
     "healthcare platform",
@@ -13,17 +13,18 @@ export const metadata: Metadata = {
     "Nearheal vision",
     "Nearheal mission",
   ],
+  // Use absolute URLs for better social media sharing
   openGraph: {
     type: "website",
     locale: "en_AU",
-    url: "/about-us",
+    url: `${process.env.NEXT_PUBLIC_APP_URL || 'https://nearheal.com'}/about-us`,
     title: "About Us | Nearheal",
     description:
-      "Discover Nearheal’s mission, vision, and values. We connect healthcare professionals and empower communities with innovative health solutions.",
+      "Discover Nearheal's mission, vision, and values. We connect healthcare professionals and empower communities with innovative health solutions.",
     siteName: "Nearheal",
     images: [
       {
-        url: "/near_heal_logo.jpeg",
+        url: `${process.env.NEXT_PUBLIC_APP_URL || 'https://nearheal.com'}/near_heal_logo.jpeg`,
         width: 1200,
         height: 630,
         alt: "About Nearheal",
@@ -35,9 +36,14 @@ export const metadata: Metadata = {
     title: "About Us | Nearheal",
     description:
       "Nearheal is building an innovative, resilient, and compassionate healthcare ecosystem in Australia. Learn more about us.",
-    images: ["/near_heal_logo.jpeg"],
+    images: [`${process.env.NEXT_PUBLIC_APP_URL || 'https://nearheal.com'}/near_heal_logo.jpeg`],
+  },
+  // Add alternates for better SEO
+  alternates: {
+    canonical: `${process.env.NEXT_PUBLIC_APP_URL || 'https://nearheal.com'}/about-us`,
   },
 };
+
 
 export default function AboutPage() {
   return (
