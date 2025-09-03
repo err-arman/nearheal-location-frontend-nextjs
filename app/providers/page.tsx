@@ -1,10 +1,6 @@
 import ProvidersClient from "@/components/providers/ProvidersClient";
 import { Metadata } from "next";
 
-
-import ProvidersClient from "@/components/providers/ProvidersClient";
-import { Metadata } from "next";
-
 export async function generateMetadata(): Promise<Metadata> {
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://nearheal.com';
 
