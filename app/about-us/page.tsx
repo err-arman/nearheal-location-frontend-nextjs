@@ -1,43 +1,29 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_APP_URL || "https://nearheal.com"
-  ),
-  title: "About Nearheal - Our Mission & Vision",
+  title: "About Us | Nearheal",
   description:
-    "Learn about Nearheal's mission to build an innovative, resilient, and competitive health service eco-system in Australia.",
-  icons: {
-    icon: "/near_heal_logo.jpeg",
-  },
-  // openGraph: {
-  //   type: "website",
-  //   title: "About Nearheal - Our Mission & Vision",
-  //   description:
-  //     "Learn about Nearheal's mission to build an innovative, resilient, and competitive health service eco-system in Australia.",
-  //   images: [
-  //     {
-  //       url: `https://bbc4bf5e5965.ngrok-free.app/near_heal_logo.jpeg`,
-  //       width: 1200,
-  //       height: 630,
-  //       alt: "About Nearheal",
-  //     },
-  //   ],
-  // },
+    "Learn more about Nearheal’s mission, vision, and values. We are a healthcare and learning platform committed to empowering communities with world-class health services.",
+  keywords: [
+    "About Nearheal",
+    "healthcare platform",
+    "NDIS services",
+    "healthcare Australia",
+    "medical services",
+    "Nearheal vision",
+    "Nearheal mission",
+  ],
   openGraph: {
     type: "website",
     locale: "en_AU",
     url: "/about-us",
-    title: "About Nearheal - Our Mission & Vision",
+    title: "About Us | Nearheal",
     description:
-      "Learn about Nearheal's mission to build an innovative, resilient, and competitive health service eco-system in Australia.",
+      "Discover Nearheal’s mission, vision, and values. We connect healthcare professionals and empower communities with innovative health solutions.",
     siteName: "Nearheal",
     images: [
       {
-        url: new URL(
-          "/near_heal_logo.jpeg",
-          process.env.NEXT_PUBLIC_APP_URL || "https://nearheal.com"
-        ).toString(),
+        url: "/near_heal_logo.jpeg",
         width: 1200,
         height: 630,
         alt: "About Nearheal",
@@ -46,15 +32,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "About Nearheal - Our Mission & Vision",
+    title: "About Us | Nearheal",
     description:
-      "Learn about Nearheal's mission to build an innovative, resilient, and competitive health service eco-system in Australia.",
-    images: [
-      new URL(
-        "/near_heal_logo.jpeg",
-        process.env.NEXT_PUBLIC_APP_URL || "https://nearheal.com"
-      ).toString(),
-    ],
+      "Nearheal is building an innovative, resilient, and compassionate healthcare ecosystem in Australia. Learn more about us.",
+    images: ["/near_heal_logo.jpeg"],
   },
 };
 
