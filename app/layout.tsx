@@ -10,13 +10,47 @@ import GoogleMapsProvider from "./LayoutWrapper";
 
 // const inter = Inter({ subsets: ["latin"] });
 
+// export const metadata: Metadata = {
+//   icons: {
+//     icon: "near_heal_logo.jpeg",
+//   },
+//   title: "Nearheal - Healthcare Platform",
+//   description:
+//     "Your complete healthcare and learning platform, connecting professionals worldwide.",
+// };
+
 export const metadata: Metadata = {
-  icons: {
-    icon: "near_heal_logo.jpeg",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://nearheal.com'),
+  title: {
+    default: "Nearheal - Healthcare Platform",
+    template: "%s | Nearheal"
   },
-  title: "Nearheal - Healthcare Platform",
-  description:
-    "Your complete healthcare and learning platform, connecting professionals worldwide.",
+  description: "Your complete healthcare and learning platform, connecting professionals worldwide.",
+  keywords: ["healthcare", "NDIS", "medical services", "health providers", "Australia"],
+  authors: [{ name: "Nearheal" }],
+  icons: {
+    icon: "/near_heal_logo.jpeg",
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_AU",
+    url: "/",
+    title: "Nearheal - Healthcare Platform",
+    description: "Your complete healthcare and learning platform, connecting professionals worldwide.",
+    siteName: "Nearheal",
+    images: [{
+      url: "/near_heal_logo.jpeg",
+      width: 1200,
+      height: 630,
+      alt: "Nearheal - Healthcare Platform"
+    }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Nearheal - Healthcare Platform",
+    description: "Your complete healthcare and learning platform, connecting professionals worldwide.",
+    images: ["/near_heal_logo.jpeg"],
+  }
 };
 
 export default function RootLayout({

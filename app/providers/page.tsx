@@ -21,6 +21,27 @@ import LocationCardList from "@/components/providers/LocationCardList";
 import PaginationControls from "@/components/providers/PaginationControls";
 import GoogleMap from "@/components/ui/GoogleMap";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { Metadata } from "next";
+
+const metadata:Metadata = {
+  title: "Healthcare Providers Directory | Nearheal",
+  description:
+    "Find and connect with trusted healthcare providers and NDIS services near you. Browse our comprehensive directory of medical professionals.",
+  openGraph: {
+    title: "Healthcare Providers Directory | Nearheal",
+    description:
+      "Find and connect with trusted healthcare providers and NDIS services near you. Browse our comprehensive directory of medical professionals.",
+    images: [
+      {
+        url: "/providers-og.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Nearheal Providers Directory",
+      },
+    ],
+  },
+};
+
 const Provider = () => {
   const searchParams = useSearchParams(); // Returns only a read-only URLSearchParams object
   const router = useRouter();

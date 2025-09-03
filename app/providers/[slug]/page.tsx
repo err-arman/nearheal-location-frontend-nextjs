@@ -18,6 +18,64 @@ import ProviderHeader from "@/components/sections/ProviderHeader";
 import ProviderInfoCard from "@/components/sections/ProviderInfoCard";
 import ProviderLayout from "@/components/layout/ProviderLayout";
 
+import { Metadata } from "next";
+
+// Add this type
+type Props = {
+  params: { slug: string };
+};
+
+// Add generateMetadata function
+async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const location = await getLocationSlug(params.slug);
+
+  if (!location) {
+    return {
+      title: "Provider Not Found | Nearheal",
+      description: "The requested healthcare provider could not be found.",
+    };
+  }
+
+  const images =
+    location.gallery && location.gallery.length > 0
+      ? [
+          {
+            url: location.gallery[0],
+            width: 1200,
+            height: 630,
+            alt: location.title,
+          },
+        ]
+      : [
+          {
+            url: "/near_heal_logo.jpeg",
+            width: 1200,
+            height: 630,
+            alt: "Nearheal Provider",
+          },
+        ];
+
+  return {
+    title: `${location.title} - Healthcare Provider`,
+    description:
+      location.description ||
+      `Learn more about ${location.title} and their healthcare services on Nearheal`,
+    openGraph: {
+      title: location.title,
+      description: location.description,
+      images,
+      type: "article",
+      url: `/providers/${params.slug}`,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: location.title,
+      description: location.description,
+      images: [images[0].url],
+    },
+  };
+}
+
 const BusinessDetails = () => {
   const { slug } = useParams<{ slug: string }>();
   const [location, setLocation] = useState<Location | null>(null);
@@ -111,7 +169,7 @@ const BusinessDetails = () => {
 
   return (
     // <ProviderLayout>
-      <div>
+    <div>
       {/* Provider Header - Prominently displays the provider name and logo */}
       <ProviderHeader location={location} />
 
@@ -119,7 +177,7 @@ const BusinessDetails = () => {
       <div className="pt-[75px] md:pt-[90px] ">
         {/* Hero Carousel with Provider Info Card overlapping */}
         <div className="relative">
-            <HeroCarousel heroContent={location?.contentHero} />
+          <HeroCarousel heroContent={location?.contentHero} />
 
           {/* Provider Info Card - Positioned so only the logo overlaps with the carousel */}
           <div className="container mx-auto px-4 relative -mt-10">
@@ -153,7 +211,7 @@ const BusinessDetails = () => {
           <ArrowUp className="h-5 w-5" />
         </button>
       )}
-      </div>
+    </div>
     // </ProviderLayout>
   );
 };
