@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   title: "About Nearheal - Our Mission & Vision",
   description:
     "Learn about Nearheal's mission to build an innovative, resilient, and competitive health service eco-system in Australia.",
+  icons: {
+    icon: "/near_heal_logo.jpeg",
+  },
   openGraph: {
     type: "website",
     title: "About Nearheal - Our Mission & Vision",
@@ -14,10 +17,7 @@ export const metadata: Metadata = {
       "Learn about Nearheal's mission to build an innovative, resilient, and competitive health service eco-system in Australia.",
     images: [
       {
-        url: new URL(
-          "/near_heal_logo.jpeg",
-          process.env.NEXT_PUBLIC_APP_URL || "https://nearheal.com"
-        ).toString(),
+        url: `https://bbc4bf5e5965.ngrok-free.app/near_heal_logo.jpeg`,
         width: 1200,
         height: 630,
         alt: "About Nearheal",
