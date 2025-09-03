@@ -10,19 +10,33 @@ export const metadata: Metadata = {
   icons: {
     icon: "/near_heal_logo.jpeg",
   },
+  // openGraph: {
+  //   type: "website",
+  //   title: "About Nearheal - Our Mission & Vision",
+  //   description:
+  //     "Learn about Nearheal's mission to build an innovative, resilient, and competitive health service eco-system in Australia.",
+  //   images: [
+  //     {
+  //       url: `https://bbc4bf5e5965.ngrok-free.app/near_heal_logo.jpeg`,
+  //       width: 1200,
+  //       height: 630,
+  //       alt: "About Nearheal",
+  //     },
+  //   ],
+  // },
   openGraph: {
     type: "website",
-    title: "About Nearheal - Our Mission & Vision",
-    description:
-      "Learn about Nearheal's mission to build an innovative, resilient, and competitive health service eco-system in Australia.",
-    images: [
-      {
-        url: `https://bbc4bf5e5965.ngrok-free.app/near_heal_logo.jpeg`,
-        width: 1200,
-        height: 630,
-        alt: "About Nearheal",
-      },
-    ],
+    locale: "en_AU",
+    url: "/",
+    title: "Nearheal - Healthcare Platform",
+    description: "Your complete healthcare and learning platform, connecting professionals worldwide.",
+    siteName: "Nearheal",
+    images: [{
+      url: "/near_heal_logo.jpeg",
+      width: 1200,
+      height: 630,
+      alt: "Nearheal - Healthcare Platform"
+    }],
   },
   twitter: {
     card: "summary_large_image",
