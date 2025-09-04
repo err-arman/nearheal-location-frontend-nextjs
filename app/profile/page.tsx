@@ -4,9 +4,16 @@
 import UpdateProfileForm from "@/components/profile/UpdateProfileForm";
 import PreviewProfile from "@/components/profile/PreviewProfile";
 import { useState } from "react";
+import { useAuth } from "@/hooks/useAuth";
+import ProtectedPage from "@/components/ProtectedPageTemplete";
 
 const DashboardProfile = () => {
   const [editMode, setEditMode] = useState(false);
+  const { user } = useAuth();
+
+  if (!user) {
+    return <ProtectedPage />;
+  }
   return (
     // <Layout>
     <div className="mt-[70px] mb-2 w-12/12">

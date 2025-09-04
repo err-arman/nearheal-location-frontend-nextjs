@@ -8,6 +8,8 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { useAuth } from "@/hooks/useAuth";
+import { authServerInfo } from "@/lib/auth";
 
 interface PaginationControlsProps {
   currentPage: number;
@@ -21,6 +23,7 @@ const PaginationControls: React.FC<PaginationControlsProps> = ({
   onPageChange,
 }) => {
   if (totalPages <= 1) return null;
+  const { user } = useAuth();
 
   return (
     <div className="mt-8">
@@ -40,9 +43,7 @@ const PaginationControls: React.FC<PaginationControlsProps> = ({
           {/* First page */}
           {currentPage > 3 && (
             <PaginationItem>
-              <PaginationLink onClick={() => onPageChange(1)}>
-                1
-              </PaginationLink>
+              <PaginationLink onClick={() => onPageChange(1)}>1</PaginationLink>
             </PaginationItem>
           )}
 
@@ -66,7 +67,12 @@ const PaginationControls: React.FC<PaginationControlsProps> = ({
                 <PaginationItem key={pageNum}>
                   <PaginationLink
                     isActive={pageNum === currentPage}
-                    onClick={() => onPageChange(pageNum)}
+                    onClick={() =>
+                      user?.id
+                        ? onPageChange(pageNum)
+                        : (window.location.href = `${authServerInfo.url}/login?token=${authServerInfo.clientId}&redirect_url=${authServerInfo.redirectUrl}`)
+                    }
+                    className="cursor-pointer"
                   >
                     {pageNum}
                   </PaginationLink>
@@ -86,7 +92,14 @@ const PaginationControls: React.FC<PaginationControlsProps> = ({
           {/* Last page */}
           {currentPage < totalPages - 2 && (
             <PaginationItem>
-              <PaginationLink onClick={() => onPageChange(totalPages)}>
+              <PaginationLink
+                onClick={() =>
+                  user?.id
+                    ? onPageChange(totalPages)
+                    : (window.location.href = `${authServerInfo.url}/login?token=${authServerInfo.clientId}&redirect_url=${authServerInfo.redirectUrl}`)
+                }
+                className="cursor-pointer"
+              >
                 {totalPages}
               </PaginationLink>
             </PaginationItem>

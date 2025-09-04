@@ -4,6 +4,7 @@ import {
   getFavoriteLocations,
   getLocationPlaceholderImage,
 } from "@/api/locationApi";
+import ProtectedPage from "@/components/ProtectedPageTemplete";
 import FilterSidebar from "@/components/providers/FilterSidebar";
 import LocationCardList from "@/components/providers/LocationCardList";
 import PaginationControls from "@/components/providers/PaginationControls";
@@ -247,6 +248,10 @@ const FavoritePage = () => {
       setMobileSearchInput("");
     }
   }, [searchParams]);
+
+  if (!user) {
+    return <ProtectedPage />;
+  }
 
   // Content component to be used in both mobile and desktop views
   const LocationContent = () => {

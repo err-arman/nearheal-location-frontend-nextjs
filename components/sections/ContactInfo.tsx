@@ -171,9 +171,9 @@ const ContactInfo: React.FC<ContactInfoProps> = ({ location }) => {
                   <p className="text-gray-200 mb-1">
                     Monday - Friday : 10:00 - 20:00
                   </p>
-                  <p className="text-gray-200">
+                  {/* <p className="text-gray-200">
                     Saturday - Sunday : 11:00 - 18:00
-                  </p>
+                  </p> */}
                 </div>
 
                 {location.claimStatus === "Not claimed" ? (

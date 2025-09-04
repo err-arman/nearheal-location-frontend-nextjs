@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import { getLocations } from "@/api/locationApi";
 import { Location } from "@/types/location";
 import { useAuth } from "@/hooks/useAuth";
+import { authServerInfo } from "@/lib/auth";
 
 export interface SelectedPlace {
   full_address: string | null;
@@ -33,6 +34,8 @@ export default function HomePage() {
   const [selectedPlace, setSelectedPlace] = useState<SelectedPlace | null>(
     null
   );
+  const [selectedPlaceErrorMessage, setSelectedPlaceErrorMessage] =
+    useState("");
   const [selectedItems, setSelectedItems] = useState<
     { type: "category" | "provider"; value: string }[]
   >([]);
@@ -93,6 +96,7 @@ export default function HomePage() {
                     searchType={["(cities)"]}
                     setselectedplace={setSelectedPlace}
                     placeholder="Search places"
+                    selectedPlaceErrorMessage={selectedPlaceErrorMessage}
                     setInitialTextValue={setInitialTextValue}
                   />
                 </div>
@@ -101,7 +105,12 @@ export default function HomePage() {
                   className="py-3 px-6 md:px-8"
                   onClick={() => {
                     const searchParams = new URLSearchParams();
-
+                    if (!selectedPlace?.full_address) {
+                      return setSelectedPlaceErrorMessage(
+                        "search place is required"
+                      );
+                    }
+                    setSelectedPlaceErrorMessage("");
                     if (selectedPlace?.full_address?.length) {
                       searchParams.append("search", selectedPlace.full_address);
                     }
@@ -291,7 +300,11 @@ export default function HomePage() {
                                   : location.description}
                               </p>
                               <Link
-                                href={`/providers/${location.slug}`}
+                                href={
+                                  user?.id
+                                    ? `/providers/${location.slug}`
+                                    : `${authServerInfo.url}/login?token=${authServerInfo.clientId}&redirect_url=${authServerInfo.redirectUrl}`
+                                }
                                 className="text-primary hover:text-primary/80 font-medium flex items-center text-sm mt-2"
                               >
                                 View Details

@@ -13,6 +13,7 @@ interface PlaceAutoCompleteSearchInputProps {
   placeholder?: string;
   searchType: string[];
   initialValue?: string;
+  selectedPlaceErrorMessage?: string;
 }
 
 const PlaceAutoComplete = (
@@ -25,6 +26,7 @@ const PlaceAutoComplete = (
     searchType,
     initialTextValue,
     initialValue,
+    selectedPlaceErrorMessage,
   } = BasicSearchInputProps;
   const [mapCenter, setMapCenter] = useState();
 
@@ -134,11 +136,20 @@ const PlaceAutoComplete = (
       <div className="relative">
         <input
           type="text"
-          className={`w-full bg-white text-gray-800 rounded-md border border-gray-300 shadow-sm px-3 py-2 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 `}
+          className={`w-full bg-white text-gray-800 rounded-md border ${
+            selectedPlaceErrorMessage
+              ? "border-red-500 placeholder-red-500"
+              : "border-gray-300 placeholder-gray-500"
+          } shadow-sm px-3 py-2 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500
+
+            `}
           value={value}
           onChange={handleInputChange}
           disabled={!ready}
-          placeholder={placeholder}
+          placeholder={
+            selectedPlaceErrorMessage ? selectedPlaceErrorMessage : placeholder
+          }
+          required
         />
       </div>
 

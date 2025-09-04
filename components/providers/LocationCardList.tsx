@@ -20,6 +20,8 @@ import {
 } from "@/api/locationApi";
 import { useAuth } from "@/hooks/useAuth";
 import "./locationCardList.css";
+import { useRouter } from "next/navigation";
+import { authServerInfo } from "@/lib/auth";
 
 interface LocationCardListProps {
   locations: Location[];
@@ -146,7 +148,13 @@ const LocationCard = ({
   refetch: any;
   favorite: any;
 }) => {
+  const router = useRouter();
+
   const handleFavorite = async () => {
+    if (!user?.id) {
+      return (window.location.href = `${authServerInfo.url}/login?token=${authServerInfo.clientId}&redirect_url=${authServerInfo.redirectUrl}`);
+    }
+
     try {
       if (!!favorite) await removeFavorite(favorite.favoriteId);
       else await postFavorite(location?.id, user?.id);
@@ -185,7 +193,13 @@ const LocationCard = ({
           {/* Title and rating */}
           <div className="flex-1 min-w-0">
             <div className="flex">
-              <Link href={`/providers/${location.slug}`}>
+              <Link
+                href={
+                  user?.id
+                    ? `/providers/${location.slug}`
+                    : `${authServerInfo.url}/login?token=${authServerInfo.clientId}&redirect_url=${authServerInfo.redirectUrl}`
+                }
+              >
                 <h3 className="text-lg font-semibold line-clamp-1 group-hover:text-primary transition-colors w-full">
                   {location.title}
                 </h3>
@@ -317,7 +331,13 @@ const LocationCard = ({
             )}
           </div>
 
-          <Link href={`/providers/${location.slug}`}>
+          <Link
+            href={
+              user?.id
+                ? `/providers/${location.slug}`
+                : `${authServerInfo.url}/login?token=${authServerInfo.clientId}&redirect_url=${authServerInfo.redirectUrl}`
+            }
+          >
             <Button
               variant="outline"
               size="sm"

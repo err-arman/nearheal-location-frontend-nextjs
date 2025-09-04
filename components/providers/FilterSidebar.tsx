@@ -36,7 +36,7 @@ interface FilterSidebarProps {
   fetchLocation: () => void;
   selectedCategory: string[];
   selectedTitle: string | null;
-  setSelectedTitle: (value: any) => void;
+  setSelectedTitle: any;
   setSelectedCategory: (categories: string[]) => void;
   priceFilter: string[];
   setPriceFilter: (prices: string[]) => void;
@@ -79,6 +79,8 @@ FilterSidebarProps) => {
   const searchParams = new URLSearchParams(useSearchParams());
   // Load filters from URL on component mount
   const router = useRouter();
+  const [selectedPlaceErrorMessage, setSelectedPlaceErrorMessage] =
+    useState("");
 
   useEffect(() => {
     const search = searchParams.get("search") || "";
@@ -159,6 +161,11 @@ FilterSidebarProps) => {
   const handleSearch = () => {
     const params = new URLSearchParams();
 
+    // @ts-ignore
+    if (!initialTextValue) {
+      return setSelectedPlaceErrorMessage("search place is required");
+    }
+    setSelectedPlaceErrorMessage("");
     // @ts-ignore
     if (filterSearchTerm?.description) {
       // @ts-ignore
@@ -244,6 +251,7 @@ FilterSidebarProps) => {
             initialTextValue={initialTextValue}
             setselectedplace={setFilterSearchTerm}
             initialValue={filterSearchTerm}
+            selectedPlaceErrorMessage={selectedPlaceErrorMessage}
             placeholder="Search places"
           />
         </div>
