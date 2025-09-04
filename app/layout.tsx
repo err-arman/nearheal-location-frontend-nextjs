@@ -7,18 +7,19 @@ import { HeaderWithMegaMenu } from "@/components/HeaderWithMegaMenu";
 import { FooterSection } from "@/components/FooterSection";
 import { Libraries, LoadScript } from "@react-google-maps/api";
 import GoogleMapsProvider from "./LayoutWrapper";
+import { SeoKeyboards } from "@/utils/constant";
 
 const inter = Inter({ subsets: ["latin"] });
 
-
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://nearheal.com'),
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_APP_URL || "https://nearheal.com"
+  ),
   title: {
-    default: "Nearheal - Healthcare Platform",
-    template: "%s | Nearheal"
+    default: "Know Your Local Expert NDIS Providers Near You! - Nearheal",
+    template: "%s | Nearheal",
   },
-  description: "Your complete healthcare and learning platform, connecting professionals worldwide.",
-  keywords: ["healthcare", "NDIS", "medical services", "health providers", "Australia"],
+  keywords: SeoKeyboards,
   authors: [{ name: "Nearheal" }],
   icons: {
     icon: "/near_heal_logo.jpeg",
@@ -28,21 +29,25 @@ export const metadata: Metadata = {
     locale: "en_AU",
     url: "/",
     title: "Nearheal - Healthcare Platform",
-    description: "Your complete healthcare and learning platform, connecting professionals worldwide.",
+    description:
+      "Your complete healthcare and learning platform, connecting professionals worldwide.",
     siteName: "Nearheal",
-    images: [{
-      url: "/near_heal_logo.jpeg",
-      width: 1200,
-      height: 630,
-      alt: "Nearheal - Healthcare Platform"
-    }],
+    images: [
+      {
+        url: "/near_heal_logo.jpeg",
+        width: 1200,
+        height: 630,
+        alt: "Nearheal - Healthcare Platform",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Nearheal - Healthcare Platform",
-    description: "Your complete healthcare and learning platform, connecting professionals worldwide.",
+    description:
+      "Your complete healthcare and learning platform, connecting professionals worldwide.",
     images: ["/near_heal_logo.jpeg"],
-  }
+  },
 };
 
 export default function RootLayout({
