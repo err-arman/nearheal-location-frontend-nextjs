@@ -197,7 +197,7 @@ const LocationCard = ({
                 href={
                   user?.id
                     ? `/providers/${location.slug}`
-                    : `${authServerInfo.url}/login?token=${authServerInfo.clientId}&redirect_url=${authServerInfo.redirectUrl}`
+                    : `${authServerInfo.url}/login?token=${authServerInfo.clientId}&redirect_url=${authServerInfo.redirectUrl}?navigate_to=/providers/${location.slug}`
                 }
               >
                 <h3 className="text-lg font-semibold line-clamp-1 group-hover:text-primary transition-colors w-full">
@@ -335,7 +335,7 @@ const LocationCard = ({
             href={
               user?.id
                 ? `/providers/${location.slug}`
-                : `${authServerInfo.url}/login?token=${authServerInfo.clientId}&redirect_url=${authServerInfo.redirectUrl}`
+                : `${authServerInfo.url}/login?token=${authServerInfo.clientId}&redirect_url=${authServerInfo.redirectUrl}?navigate_to=/providers/${location.slug}`
             }
           >
             <Button

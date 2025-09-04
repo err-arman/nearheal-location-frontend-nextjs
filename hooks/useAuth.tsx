@@ -36,11 +36,11 @@ export const useAuth = () => {
     window.location.href = `${authServerInfo.url}/register?token=${authServerInfo.clientId}&redirect_url=${authServerInfo.redirectUrl}`;
   };
 
-  const handleLoginToken = async (token: string) => {
+  const handleLoginToken = async (token: string, navigate_to?: string) => {
     try {
       const user = await login(token);
       await syncUser(user);
-      window.location.href = "/";
+      window.location.href = `${navigate_to}`;
     } catch (err) {
       throw err;
     }

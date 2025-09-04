@@ -169,7 +169,7 @@ const ContactInfo: React.FC<ContactInfoProps> = ({ location }) => {
                 <div>
                   <h3 className="text-xl font-semibold mb-2">Open Time</h3>
                   <p className="text-gray-200 mb-1">
-                    Monday - Friday : 10:00 - 20:00
+                    Monday - Friday : 09:00 AM - 05:00 PM
                   </p>
                   {/* <p className="text-gray-200">
                     Saturday - Sunday : 11:00 - 18:00

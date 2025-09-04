@@ -9,13 +9,14 @@ export default function AuthCallback() {
   const [loading, setLoading] = useState(true);
   const searchParams = useSearchParams();
   const authToken = searchParams.get("auth_token");
+  const navigate_to = searchParams.get("navigate_to");
   const { handleLoginToken } = useAuth();
 
   useEffect(() => {
     const processAuth = async () => {
       if (authToken) {
         try {
-          await handleLoginToken(authToken);
+          await handleLoginToken(authToken, navigate_to ? navigate_to : "/");
         } catch (err) {
           console.error("Login failed", err);
         }
@@ -25,7 +26,6 @@ export default function AuthCallback() {
 
     processAuth();
   }, [authToken]);
-
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
