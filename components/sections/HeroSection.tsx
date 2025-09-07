@@ -3,15 +3,11 @@ export const HeroSection = () => {
     <section className="bg-white">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className="max-w-xl">
+          {/* Left Content */}
+          <div className="max-w-xl mx-auto text-center lg:mx-0 lg:text-left">
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-primary-foreground mb-4 leading-snug">
               Find your local experts near you
             </h1>
-            {/* <p className="text-xl text-primary-foreground/90 mb-8">
-              Know Your Local Expert Near You!
-              <br />
-              Access the information you need to find the best health service
-            </p> */}
             <a
               href="/providers"
               className="inline-block px-8 py-4 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors text-lg"
@@ -19,6 +15,8 @@ export const HeroSection = () => {
               Get Started
             </a>
           </div>
+
+          {/* Right Image */}
           <div className="relative">
             <img
               src="https://images.unsplash.com/photo-1713942589752-6c6bb58ca8b6?auto=format&fit=crop&w=800"

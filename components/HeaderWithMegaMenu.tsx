@@ -189,12 +189,14 @@ export const HeaderWithMegaMenu = ({
                 <Link
                   href="/about-us"
                   className="text-gray-700 hover:text-primary transition-colors px-4"
+                  onClick={() => setIsMenuOpen(false)}
                 >
                   About
                 </Link>
                 <Link
                   href="/contact"
                   className="text-gray-700 hover:text-primary transition-colors px-4"
+                  onClick={() => setIsMenuOpen(false)}
                 >
                   Contact
                 </Link>

@@ -10,14 +10,14 @@ export default function TermsConditionsPage() {
         {/* Header */}
         <div className="text-center mb-8 sm:mb-12">
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4">Terms & Conditions</h1>
-          <div className="flex items-center justify-center gap-2 mb-4">
+          {/* <div className="flex items-center justify-center gap-2 mb-4">
             <Badge variant="outline" className="text-primary border-primary/30">
               Customer Terms
             </Badge>
             <Badge variant="outline" className="text-secondary border-secondary/30">
               Maturedge Pty Ltd
             </Badge>
-          </div>
+          </div> */}
           <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto">
             This document outlines Nearheal's Practice Customer Terms and Conditions that apply to all services
             delivered by Nearheal.

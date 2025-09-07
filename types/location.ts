@@ -2,6 +2,7 @@ export interface BusinessHour {
   day: string;
   openTime: string;
   closeTime: string;
+  isClosed: boolean;
 }
 
 export interface SlideContent {

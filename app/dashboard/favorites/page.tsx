@@ -31,6 +31,7 @@ const FavoritePage = () => {
   const { user } = useAuth();
   const pathname = usePathname();
   const router = useRouter();
+  const [selectedTitle, setSelectedTitle] = useState<string | null>(null);
 
   // Extract search and region parameters from URL
   const searchParams = useSearchParams();
@@ -339,8 +340,10 @@ const FavoritePage = () => {
                 filterSearchTerm={filterSearchTerm}
                 setFilterSearchTerm={setFilterSearchTerm}
                 selectedCategory={selectedCategory}
+                selectedTitle={selectedTitle}
                 setSelectedCategory={setSelectedCategory}
                 priceFilter={priceFilter}
+                setSelectedTitle={setSelectedTitle}
                 setPriceFilter={setPriceFilter}
                 selectedRegion={selectedRegion}
                 setSelectedRegion={setSelectedRegion}
@@ -416,7 +419,9 @@ const FavoritePage = () => {
                 setSelectedCategory={setSelectedCategory}
                 priceFilter={priceFilter}
                 setPriceFilter={setPriceFilter}
+                setSelectedTitle={setSelectedTitle}
                 selectedRegion={selectedRegion}
+                selectedTitle={selectedTitle}
                 setSelectedRegion={setSelectedRegion}
                 onResetFilters={resetFilters}
                 fetchLocation={fetchLocations}
