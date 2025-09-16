@@ -300,14 +300,10 @@ export default function HomePage() {
                                   : location.description}
                               </p>
                               <Link
-                                href={
-                                  user?.id
-                                    ? `/providers/${location.slug}`
-                                    : `${authServerInfo.url}/login?token=${authServerInfo.clientId}&redirect_url=${authServerInfo.redirectUrl}?navigate_to=/providers/${location.slug}`
-                                }
+                                href={`/providers/${location.slug}`}
                                 className="text-primary hover:text-primary/80 font-medium flex items-center text-sm mt-2"
                               >
-                                View Details 
+                                View Details
                                 <ArrowRight className="ml-1 h-3 w-3" />
                               </Link>
                             </div>
